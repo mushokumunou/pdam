@@ -192,3 +192,11 @@ them here because it also carries presets, dashboards and permissions.
 When the spec table becomes annoying to edit by hand, the builder is a form over the same six
 records (create collection, add field, set preset) — an admin-only extension. It must write the
 native records, then `d6s sync pull`. It must never introduce a second schema store.
+
+## 10. Known limitation: field groups (12.6.1)
+
+`type: alias` + `special: ["group"]` fields are invisible to the bulk `/fields` endpoint, so both the
+API consumer and the Studio form lose them (and their children). Until upstream fixes
+directus/directus#28379, templates express form structure with field order, hidden technical
+fields, display modes and conditions only. Re-adding groups later is a metadata-only change
+(the applier already knows how); no data migration is involved.

@@ -27,29 +27,20 @@
       "type": "string",
       "length": 60,
       "required": true,
-      "unique": true,
-      "group": "basics"
+      "unique": true
     },
     {
       "field": "slug",
       "type": "string",
       "length": 60,
       "required": true,
-      "unique": true,
-      "group": "basics"
+      "unique": true
     },
     {
       "field": "color",
       "type": "string",
       "length": 9,
-      "placeholder": "#rrggbb",
-      "group": "basics"
-    }
-  ],
-  "groups": [
-    {
-      "field": "basics",
-      "title": "Basics"
+      "placeholder": "#rrggbb"
     }
   ]
 }

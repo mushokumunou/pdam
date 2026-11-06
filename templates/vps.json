@@ -51,8 +51,7 @@
       "field": "name",
       "type": "string",
       "length": 120,
-      "required": true,
-      "group": "basics"
+      "required": true
     },
     {
       "field": "provider",
@@ -60,46 +59,39 @@
       "to": "providers",
       "required": true,
       "on_delete": "RESTRICT",
-      "display": "provider.name",
-      "group": "basics"
+      "display": "provider.name"
     },
     {
       "field": "account",
       "type": "m2o",
       "to": "accounts",
       "on_delete": "SET NULL",
-      "display": "account.name",
-      "group": "basics"
+      "display": "account.name"
     },
     {
       "field": "hostname",
       "type": "string",
-      "length": 255,
-      "group": "basics"
+      "length": 255
     },
     {
       "field": "ipv4",
       "type": "string",
-      "length": 15,
-      "group": "network"
+      "length": 15
     },
     {
       "field": "ipv6",
       "type": "string",
-      "length": 45,
-      "group": "network"
+      "length": 45
     },
     {
       "field": "region",
       "type": "string",
-      "length": 60,
-      "group": "network"
+      "length": 60
     },
     {
       "field": "os",
       "type": "string",
-      "length": 60,
-      "group": "network"
+      "length": 60
     },
     {
       "field": "status",
@@ -110,42 +102,20 @@
         "inactive",
         "expired",
         "archived"
-      ],
-      "group": "lifecycle"
+      ]
     },
     {
       "field": "expires_on",
-      "type": "date",
-      "group": "lifecycle"
+      "type": "date"
     },
     {
       "field": "tags",
       "type": "tags",
-      "to": "tags",
-      "group": "extra"
+      "to": "tags"
     },
     {
       "field": "notes",
-      "type": "text",
-      "group": "extra"
-    }
-  ],
-  "groups": [
-    {
-      "field": "basics",
-      "title": "Basics"
-    },
-    {
-      "field": "network",
-      "title": "Network"
-    },
-    {
-      "field": "lifecycle",
-      "title": "Lifecycle"
-    },
-    {
-      "field": "extra",
-      "title": "Tags & Notes"
+      "type": "text"
     }
   ]
 }

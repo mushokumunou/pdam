@@ -112,8 +112,7 @@ def field_payload(slug: str, f: dict, sort: int) -> dict:
         meta["validation_message"] = f.get("validation_message", "invalid value")
     if f.get("note"):
         meta["note"] = f["note"]
-    if f.get("group"):
-        meta["group"] = f["group"]
+    meta["group"] = None   # see docs: Directus 12.6.1 /fields omits group alias fields
     if f.get("placeholder"):
         meta["options"] = {"placeholder": f["placeholder"]}
 
@@ -180,12 +179,6 @@ def ensure_collection(spec: dict):
         api("PATCH", f"/collections/{slug}", {"meta": meta_patch})
     else:
         fields = system_fields()
-        for gi, g in enumerate(spec.get("groups") or [], start=2):
-            fields.append({"field": g["field"], "type": "alias",
-                           "meta": {"special": ["group"], "interface": "group-detail",
-                                    "options": {"start": "open"}, "width": "full",
-                                    "sort": gi, "hidden": False, "readonly": False},
-                           "schema": None})
         user_fields = [f for f in spec["fields"] if f["type"] not in ("tags",)]
         for i, f in enumerate(user_fields, start=10):
             fields.append(field_payload(slug, f, i))
@@ -195,17 +188,6 @@ def ensure_collection(spec: dict):
         if code not in (200, 204):
             raise SystemExit(f"create {slug} failed {code}: {json.dumps(body)[:600]}")
         log(f"  + collection {slug} ({len(fields)} fields)")
-
-    for gi, g in enumerate(spec.get("groups") or [], start=2):
-        if not exists(f"/fields/{slug}/{g['field']}"):
-            code, body = api("POST", f"/fields/{slug}", {
-                "field": g["field"], "type": "alias",
-                "meta": {"special": ["group"], "interface": "group-detail",
-                         "options": {"start": "open"}, "width": "full", "sort": gi,
-                         "hidden": False, "readonly": False}, "schema": None})
-            if code not in (200, 204):
-                raise SystemExit(f"group {slug}.{g['field']} failed {code}: {json.dumps(body)[:300]}")
-            log(f"    + group {slug}.{g['field']}")
 
     # fields added later (idempotent)
     for i, f in enumerate(spec["fields"], start=10):
@@ -330,7 +312,8 @@ def ensure_preset(spec: dict):
             if p["collection"] == slug and p["user"] is None and p["role"] is None]
     payload = {
         "collection": slug, "user": None, "role": None,
-        "bookmark": spec["name"], "layout": "tabular",
+        "bookmark": None,   # global *default* view (a bookmark becomes a sidebar entry instead)
+        "layout": "tabular",
         "layout_query": {"tabular": {"fields": cols, "sort": sort}},
         "layout_options": {"tabular": {"fields": cols,
                                        "widths": listing.get("widths") or {},
@@ -369,7 +352,7 @@ INDEX_FIELDS = [
 
 
 ASSET_INDEX_PRESET = {
-    "collection": "asset_index", "bookmark": "All Assets", "layout": "tabular",
+    "collection": "asset_index", "bookmark": None, "layout": "tabular",
     "layout_query": {"tabular": {"fields": ["name", "template", "provider_name", "account_name",
                                             "status", "expires_on", "renewal_on", "tags"],
                                  "sort": ["-updated_at"]}},

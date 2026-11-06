@@ -82,8 +82,11 @@ M2M tags resolve (`tags.tags_id.name` → `["production","infra"]`);
 2. `[All]` = `asset_index` page with the global "All Assets" preset (name, template, provider,
    account, status, expires, renewal, tags; sort `-updated_at`) **[done]**.
 3. Each type page = native collection page + its preset **[done]**.
-4. Form drawers are sectioned with alias group fields; technical fields (`id`, timestamps) hidden;
-   `status` renders as labels, dates as datetime, relations by name **[done]**.
+4. Form drawers verified template-specific (VPS: name/provider/account/hostname/ipv4/ipv6/region/
+   os/status/expires/notes/tags; Domain: registrar/dns_provider/auto_renew/…; no cross-type fields).
+   Technical fields hidden, `status` as labels, dates as datetime, relations by name **[done]**.
+   Field *group sections* were removed: group alias fields are invisible to `/fields` on 12.6.1
+   (directus/directus#28379) and collapse the form — documented deviation, flat forms instead.
 5. Dashboard panels — moved to Phase 6 (out of scope this round).
 
 **Verify:** switch types → columns change, `/items/<type>` unchanged, Add form differs per type,

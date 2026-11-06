@@ -261,23 +261,29 @@ follow the trigger and remain queryable (archived assets are still assets).
 - `secrets` — never (ADR-005).
 
 
-## 16. Implemented form layout (field groups)
+## 16. Form layout (implemented)
 
-Every collection ships alias "group" fields (`type: alias`, `special: ["group"]`,
-`interface: group-detail`) so the create/edit drawer is sectioned instead of one long list:
+Fields are ordered by `meta.sort` in the spec, technical fields (`id`) hidden, timestamps shown at
+the end, and displays set per type: `select` -> labels, `date`/`timestamp` -> datetime,
+`m2o` -> related-values with `{{name}}`, `m2m tags` -> list-m2m.
 
-| collection | groups |
+**Field groups are NOT used.** On Directus 12.6.1, alias fields with `special: ["group"]` are
+omitted from the bulk `GET /fields` response (single-field `GET /fields/<c>/<f>` returns them,
+upstream issue directus/directus#28379), so Studio cannot render the group *or its children* —
+a grouped form collapses to only the ungrouped fields. The applier therefore creates no group
+fields and explicitly clears `meta.group`. Forms stay flat but remain template-specific.
+
+Field order per template (create/edit drawer):
+
+| template | order |
 |---|---|
-| vps | Basics (name, provider, account, hostname) · Network (ipv4, ipv6, region, os) · Lifecycle (status, expires_on) · Tags and Notes |
-| domains | Basics (name, registrar, account, dns_provider, primary_server) · Lifecycle (status, expires_on, auto_renew) · Tags and Notes |
-| accounts | Basics (name, provider, username, email, url, secret_reference, status) · Tags and Notes |
-| subscriptions | Basics (name, provider, account, payment_method) · Billing (price, currency, billing_cycle, renewal_on, started_on, auto_renew) · Lifecycle (status) · Tags and Notes |
-| payment_methods | Basics (name, provider, type, last_four, currency) · Lifecycle (status, expires_on) · Tags and Notes (secret_reference, tags, notes) |
-| secret_references | Basics (name, secret_type, provider, reference, vault_url, last_rotated_at, status) · Notes |
-| providers | Basics (name, slug, category, website, status) · Notes |
-
-Displays: `select` -> labels, `date`/`timestamp` -> datetime, `m2o` -> related-values with
-`{{name}}` template, `m2m tags` -> list-m2m with `{{tags_id.name}}`.
+| vps | name, provider, account, hostname, ipv4, ipv6, region, os, status, expires_on, notes, tags |
+| domains | name, registrar, account, dns_provider, primary_server, expires_on, auto_renew, status, notes, tags |
+| accounts | name, provider, username, email, url, secret_reference, status, notes, tags |
+| subscriptions | name, provider, account, payment_method, price, currency, billing_cycle, renewal_on, started_on, auto_renew, status, notes, tags |
+| payment_methods | name, provider, type, last_four, currency, expires_on, status, secret_reference, notes, tags |
+| secret_references | name, secret_type, provider, reference, vault_url, last_rotated_at, status, notes |
+| providers | name, slug, category, website, status, notes |
 
 ## 17. Delete behaviour (verified)
 

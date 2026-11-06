@@ -34,8 +34,7 @@
       "type": "string",
       "length": 120,
       "required": true,
-      "unique": true,
-      "group": "basics"
+      "unique": true
     },
     {
       "field": "slug",
@@ -43,8 +42,7 @@
       "length": 60,
       "required": true,
       "unique": true,
-      "note": "stable machine handle, [a-z0-9-]",
-      "group": "basics"
+      "note": "stable machine handle, [a-z0-9-]"
     },
     {
       "field": "category",
@@ -57,20 +55,17 @@
         "finance",
         "software",
         "other"
-      ],
-      "group": "basics"
+      ]
     },
     {
       "field": "website",
       "type": "string",
       "length": 255,
-      "placeholder": "https://",
-      "group": "basics"
+      "placeholder": "https://"
     },
     {
       "field": "notes",
-      "type": "text",
-      "group": "extra"
+      "type": "text"
     },
     {
       "field": "status",
@@ -80,18 +75,7 @@
         "active",
         "inactive",
         "archived"
-      ],
-      "group": "basics"
-    }
-  ],
-  "groups": [
-    {
-      "field": "basics",
-      "title": "Basics"
-    },
-    {
-      "field": "extra",
-      "title": "Notes"
+      ]
     }
   ]
 }

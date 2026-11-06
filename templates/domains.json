@@ -47,51 +47,44 @@
       "length": 190,
       "required": true,
       "unique": true,
-      "note": "FQDN, lower-case",
-      "group": "basics"
+      "note": "FQDN, lower-case"
     },
     {
       "field": "registrar",
       "type": "m2o",
       "to": "providers",
       "on_delete": "SET NULL",
-      "display": "registrar.name",
-      "group": "basics"
+      "display": "registrar.name"
     },
     {
       "field": "account",
       "type": "m2o",
       "to": "accounts",
       "on_delete": "SET NULL",
-      "display": "account.name",
-      "group": "basics"
+      "display": "account.name"
     },
     {
       "field": "dns_provider",
       "type": "m2o",
       "to": "providers",
       "on_delete": "SET NULL",
-      "display": "dns_provider.name",
-      "group": "basics"
+      "display": "dns_provider.name"
     },
     {
       "field": "primary_server",
       "type": "m2o",
       "to": "vps",
       "on_delete": "SET NULL",
-      "display": "primary_server.name",
-      "group": "basics"
+      "display": "primary_server.name"
     },
     {
       "field": "expires_on",
-      "type": "date",
-      "group": "lifecycle"
+      "type": "date"
     },
     {
       "field": "auto_renew",
       "type": "boolean",
-      "default": true,
-      "group": "lifecycle"
+      "default": true
     },
     {
       "field": "status",
@@ -102,33 +95,16 @@
         "inactive",
         "expired",
         "archived"
-      ],
-      "group": "lifecycle"
+      ]
     },
     {
       "field": "tags",
       "type": "tags",
-      "to": "tags",
-      "group": "extra"
+      "to": "tags"
     },
     {
       "field": "notes",
-      "type": "text",
-      "group": "extra"
-    }
-  ],
-  "groups": [
-    {
-      "field": "basics",
-      "title": "Basics"
-    },
-    {
-      "field": "lifecycle",
-      "title": "Lifecycle"
-    },
-    {
-      "field": "extra",
-      "title": "Tags & Notes"
+      "type": "text"
     }
   ]
 }

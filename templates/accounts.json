@@ -47,8 +47,7 @@
       "field": "name",
       "type": "string",
       "length": 120,
-      "required": true,
-      "group": "basics"
+      "required": true
     },
     {
       "field": "provider",
@@ -56,36 +55,31 @@
       "to": "providers",
       "required": true,
       "on_delete": "RESTRICT",
-      "display": "provider.name",
-      "group": "basics"
+      "display": "provider.name"
     },
     {
       "field": "username",
       "type": "string",
-      "length": 120,
-      "group": "basics"
+      "length": 120
     },
     {
       "field": "email",
       "type": "string",
       "length": 190,
-      "format": "email",
-      "group": "basics"
+      "format": "email"
     },
     {
       "field": "url",
       "type": "string",
       "length": 255,
-      "placeholder": "https://",
-      "group": "basics"
+      "placeholder": "https://"
     },
     {
       "field": "secret_reference",
       "type": "m2o",
       "to": "secret_references",
       "on_delete": "SET NULL",
-      "display": "secret_reference.name",
-      "group": "basics"
+      "display": "secret_reference.name"
     },
     {
       "field": "status",
@@ -95,29 +89,16 @@
         "active",
         "inactive",
         "archived"
-      ],
-      "group": "basics"
+      ]
     },
     {
       "field": "tags",
       "type": "tags",
-      "to": "tags",
-      "group": "extra"
+      "to": "tags"
     },
     {
       "field": "notes",
-      "type": "text",
-      "group": "extra"
-    }
-  ],
-  "groups": [
-    {
-      "field": "basics",
-      "title": "Basics"
-    },
-    {
-      "field": "extra",
-      "title": "Tags & Notes"
+      "type": "text"
     }
   ]
 }
