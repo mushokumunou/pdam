@@ -12,8 +12,11 @@ Agents must discover the model, not assume it. Everything below is discoverable 
 
 ```bash
 # which asset templates exist (registry = the "assets" collection group)
-curl -s "$BASE/collections?filter[group][_eq]=assets&fields=collection,meta.icon,meta.note,meta.sort" \
-  -H "Authorization: Bearer $TOKEN"
+# NOTE: /collections ignores ?filter=… (it returns every collection), so filter client-side
+# on meta.group. 36 rows on a fresh instance — cheap.
+curl -s "$BASE/collections?fields=collection,meta.group,meta.icon,meta.note,meta.sort" \
+  -H "Authorization: Bearer $TOKEN" \
+  | jq '[.data[] | select(.meta.group == "assets") | .collection]'
 
 # field schema of one template (types, required, choices, relations)
 curl -s "$BASE/fields/vps" -H "Authorization: Bearer $TOKEN"
