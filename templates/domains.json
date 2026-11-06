@@ -1,0 +1,41 @@
+{
+  "slug": "domains",
+  "name": "Domains",
+  "icon": "public",
+  "note": "Registered domain names",
+  "sort": 40,
+  "group": "assets",
+  "display_template": "{{name}}",
+  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "list": {
+    "sort": ["name"],
+    "columns": ["name", "registrar", "expires_on", "auto_renew", "status"],
+    "widths": { "name": 240, "registrar": 160, "expires_on": 140, "auto_renew": 110, "status": 110 }
+  },
+  "index": {
+    "name": "name",
+    "provider": "registrar.name",
+    "account": "account.name",
+    "expires": "expires_on",
+    "renewal": null,
+    "extra": ["auto_renew"]
+  },
+  "fields": [
+    { "field": "name", "type": "string", "length": 190, "required": true, "unique": true,
+      "note": "FQDN, lower-case" },
+    { "field": "registrar", "type": "m2o", "to": "providers",
+      "on_delete": "SET NULL", "display": "registrar.name" },
+    { "field": "account", "type": "m2o", "to": "accounts",
+      "on_delete": "SET NULL", "display": "account.name" },
+    { "field": "dns_provider", "type": "m2o", "to": "providers",
+      "on_delete": "SET NULL", "display": "dns_provider.name" },
+    { "field": "primary_server", "type": "m2o", "to": "vps",
+      "on_delete": "SET NULL", "display": "primary_server.name" },
+    { "field": "expires_on", "type": "date" },
+    { "field": "auto_renew", "type": "boolean", "default": true },
+    { "field": "status", "type": "select", "default": "active",
+      "choices": ["active", "inactive", "expired", "archived"] },
+    { "field": "tags", "type": "tags", "to": "tags" },
+    { "field": "notes", "type": "text" }
+  ]
+}

@@ -38,9 +38,15 @@ container and 200 through Cloudflare.
 
 ---
 
-## Phase 2 — Base data model **[next]**
+## Phase 2 — Base data model **[done — except the index DDL step]**
 
-Build the six reference/asset collections that everything else depends on, plus the generator.
+Shipped: `templates/{providers,tags,secret_references,accounts}.json`, `scripts/apply_templates.py`
+(idempotent spec → API: collections, fields, m2o + m2m relations, global presets),
+`scripts/build_index_sql.py`, `directus/` sync baseline.
+
+Still pending: applying `schema/asset_index.sql` and `schema/checks.sql` on the database
+(functions, triggers, CHECK constraints). The files are written and reviewed; execution needs a
+host-level write that was blocked pending approval.
 
 1. `templates/providers.json`, `tags.json`, `secret_references.json`, `accounts.json` (spec files).
 2. `scripts/generate.py` — spec → Directus collection JSON (`directus/default/schema/*.json`),
@@ -55,23 +61,29 @@ returns the account row with `provider_name`, `d6s sync pull` produces no diff (
 
 ---
 
-## Phase 3 — First templates
+## Phase 3 — First templates **[done]**
 
-`vps`, `domains`, `subscriptions`, `payment_methods` from spec files; tags M2M junctions; index
-mappings; one global preset per template with its own columns/widths/sort.
+`vps`, `domains`, `subscriptions`, `payment_methods` generated from spec files; tags M2M junctions
+(`<collection>_tags`) with two relations each; one global preset per template with its own
+columns/widths/sort; `asset_index` registered as a read-only collection.
 
-**Verify (brief Scenario 1/2):** `GET /items/vps` and `GET /items/domains` return disjoint sets;
-each preset lists its own columns; creating a VPS rejects `registrar` (a Domain field).
+**Verified:** `/items/vps` and `/items/domains` return disjoint sets; each preset carries its own
+column list; deep relational filters work
+(`/items/vps?filter[provider][slug][_eq]=hetzner` → 2 rows,
+`/items/domains?filter[account][name][_eq]=Cloudflare Personal` → 3 rows);
+M2M tags resolve (`tags.tags_id.name` → `["production","infra"]`);
+`?filter[expires_on][_lte]=…` returns the right domain.
 
 ---
 
-## Phase 4 — Template-driven views **[the acceptance test]**
+## Phase 4 — Template-driven views **[in progress — blocked on the index DDL]**
 
-1. Nav group `assets` holds all five types with icons and `sort`.
-2. `[All]` = `asset_index` collection page (columns: name, template, provider, status, expires).
-3. Each type page = native collection page + its preset.
+1. Nav group `assets` holds all five types with icons and `sort` **[done]**.
+2. `[All]` = `asset_index` collection page (columns: name, template, provider, status, expires)
+   **[schema ready, rows pending triggers]**.
+3. Each type page = native collection page + its preset **[done]**.
 4. Dashboard (Insights): asset counts by type, expiring ≤30 days, upcoming renewals, status split,
-   provider distribution, recent changes — all over `asset_index`/typed collections.
+   provider distribution, recent changes **[pending index]**.
 
 **Verify:** switch types → columns change, `/items/<type>` unchanged, Add form differs per type,
 All list shows all five, counts match `meta.filter_count` per collection.

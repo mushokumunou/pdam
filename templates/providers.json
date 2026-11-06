@@ -1,0 +1,26 @@
+{
+  "slug": "providers",
+  "name": "Providers",
+  "icon": "storefront",
+  "note": "Vendors that own accounts and assets",
+  "sort": 20,
+  "group": "reference",
+  "display_template": "{{name}}",
+  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "list": {
+    "sort": ["name"],
+    "columns": ["name", "category", "website", "status"],
+    "widths": { "name": 220, "category": 140, "website": 260, "status": 110 }
+  },
+  "fields": [
+    { "field": "name", "type": "string", "length": 120, "required": true, "unique": true },
+    { "field": "slug", "type": "string", "length": 60, "required": true, "unique": true,
+      "note": "stable machine handle, [a-z0-9-]" },
+    { "field": "category", "type": "select", "default": "other",
+      "choices": ["cloud", "domain", "ai", "finance", "software", "other"] },
+    { "field": "website", "type": "string", "length": 255, "placeholder": "https://" },
+    { "field": "notes", "type": "text" },
+    { "field": "status", "type": "select", "default": "active",
+      "choices": ["active", "inactive", "archived"] }
+  ]
+}

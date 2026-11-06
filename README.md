@@ -40,18 +40,40 @@ The container creates the Directus schema tables and the first admin user on fir
 
 ### Restore the data model (schema + views + navigation)
 
-Schema lives in `directus/default/` as reviewable JSON, not in a database dump.
+Two equivalent paths — pick one:
+
+**A. From the spec files (no Studio clicks)**
+
+```bash
+export DIRECTUS_URL=https://pdam.example.com
+echo "<admin-static-token>" > .admin-token        # git-ignored
+python3 scripts/apply_templates.py               # collections, fields, relations, presets
+python3 scripts/build_index_sql.py               # regenerate schema/asset_index.sql
+psql "$DATABASE_URL" -f schema/asset_index.sql   # projection triggers (read model)
+psql "$DATABASE_URL" -f schema/checks.sql        # IP / card / currency / FQDN constraints
+```
+
+**B. From the committed sync files (reviewable diffs)**
 
 ```bash
 npm install -g @directus/cli@12
 d6s profile add pdam --url https://pdam.example.com --token <admin-static-token>
 d6s sync diff --to pdam       # always preview first
-d6s sync push --to pdam       # apply: collections, fields, relations, presets, dashboards
+d6s sync push --to pdam       # collections, fields, relations, presets, dashboards
 ```
+
+Then `d6s sync pull --from pdam` to capture anything done in the Studio.
 
 `d6s` refuses to run when the target Directus version or database vendor differs from the
 version recorded in `directus/default/schema/metadata.json`. Keep the image tag in
 `docker-compose.yml` and the sync metadata in step.
+
+### Optional: acceptance dataset
+
+```bash
+python3 scripts/seed_example.py    # Cloudflare×3 domains, Hetzner×2 VPS, OpenAI→ChatGPT→Wise card
+```
+
 
 ### Pull changes back
 

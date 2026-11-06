@@ -16,6 +16,7 @@ Target: Directus 12.6.1 on PostgreSQL 18. All primary keys are `uuid` with
 | States | `status` string + `select-dropdown` choices, **not** PG enums | choices are editable without DDL; PG enums are painful to alter |
 | Archive | `status = archived`, collection `archive_field = status`, `archive_value = archived`, `unarchive_value = active` | native Archive/Unarchive actions |
 | Delete | `RESTRICT` for identity-bearing parents (provider), `SET NULL` for optional links | deleting a provider must not silently orphan assets |
+| Value rules (IP, last four, ISO currency, lower-case FQDN) | PostgreSQL `CHECK` constraints in `schema/checks.sql`, **not** Directus field meta `validation` | field meta `validation` 500s every write on 12.6.1 (architecture §2) |
 
 **Deviation from the brief's field list (deliberate):** the Domain template names its identifier
 `name` (holding the FQDN) instead of `domain`. Reason: every asset needs one uniform identifier

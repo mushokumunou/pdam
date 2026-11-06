@@ -1,0 +1,43 @@
+{
+  "slug": "subscriptions",
+  "name": "Subscriptions",
+  "icon": "autorenew",
+  "note": "Recurring paid services",
+  "sort": 50,
+  "group": "assets",
+  "display_template": "{{name}}",
+  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "list": {
+    "sort": ["renewal_on"],
+    "columns": ["name", "provider", "price", "currency", "billing_cycle", "renewal_on", "status"],
+    "widths": { "name": 200, "provider": 140, "price": 100, "currency": 90, "billing_cycle": 120, "renewal_on": 140, "status": 110 }
+  },
+  "index": {
+    "name": "name",
+    "provider": "provider.name",
+    "account": "account.name",
+    "expires": null,
+    "renewal": "renewal_on",
+    "extra": ["billing_cycle", "currency", "price"]
+  },
+  "fields": [
+    { "field": "name", "type": "string", "length": 120, "required": true },
+    { "field": "provider", "type": "m2o", "to": "providers",
+      "on_delete": "SET NULL", "display": "provider.name" },
+    { "field": "account", "type": "m2o", "to": "accounts",
+      "on_delete": "SET NULL", "display": "account.name" },
+    { "field": "payment_method", "type": "m2o", "to": "payment_methods",
+      "on_delete": "SET NULL", "display": "payment_method.name" },
+    { "field": "price", "type": "decimal", "precision": 12, "scale": 2 },
+    { "field": "currency", "type": "string", "length": 3, "default": "USD" },
+    { "field": "billing_cycle", "type": "select", "default": "monthly",
+      "choices": ["monthly", "quarterly", "yearly", "custom"] },
+    { "field": "renewal_on", "type": "date" },
+    { "field": "started_on", "type": "date" },
+    { "field": "auto_renew", "type": "boolean", "default": true },
+    { "field": "status", "type": "select", "default": "active",
+      "choices": ["active", "inactive", "canceled", "archived"] },
+    { "field": "tags", "type": "tags", "to": "tags" },
+    { "field": "notes", "type": "text" }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "accounts",
+  "name": "Accounts",
+  "icon": "person",
+  "note": "Logins you hold at a provider",
+  "sort": 10,
+  "group": "assets",
+  "display_template": "{{name}}",
+  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "list": {
+    "sort": ["name"],
+    "columns": ["name", "provider", "username", "email", "status"],
+    "widths": { "name": 220, "provider": 160, "username": 160, "email": 240, "status": 110 }
+  },
+  "index": {
+    "name": "name",
+    "provider": "provider.name",
+    "account": null,
+    "expires": null,
+    "renewal": null,
+    "extra": ["username", "email", "url"]
+  },
+  "fields": [
+    { "field": "name", "type": "string", "length": 120, "required": true },
+    { "field": "provider", "type": "m2o", "to": "providers", "required": true,
+      "on_delete": "RESTRICT", "display": "provider.name" },
+    { "field": "username", "type": "string", "length": 120 },
+    { "field": "email", "type": "string", "length": 190, "format": "email" },
+    { "field": "url", "type": "string", "length": 255, "placeholder": "https://" },
+    { "field": "secret_reference", "type": "m2o", "to": "secret_references",
+      "on_delete": "SET NULL", "display": "secret_reference.name" },
+    { "field": "status", "type": "select", "default": "active",
+      "choices": ["active", "inactive", "archived"] },
+    { "field": "tags", "type": "tags", "to": "tags" },
+    { "field": "notes", "type": "text" }
+  ]
+}

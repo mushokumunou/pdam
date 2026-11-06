@@ -1,0 +1,700 @@
+{
+  "collection": "payment_methods",
+  "definition": {
+    "collection": "payment_methods",
+    "meta": {
+      "accountability": "all",
+      "archive_app_filter": true,
+      "archive_field": "status",
+      "archive_value": "archived",
+      "autosave_revision_interval": null,
+      "collapse": "open",
+      "collection": "payment_methods",
+      "color": null,
+      "display_template": "{{name}}",
+      "group": "assets",
+      "hidden": false,
+      "icon": "credit_card",
+      "item_duplication_fields": null,
+      "note": "Cards and other rails subscriptions charge",
+      "preview_url": null,
+      "singleton": false,
+      "sort": 20,
+      "sort_field": null,
+      "status": "active",
+      "translations": null,
+      "unarchive_value": "active",
+      "versioning": false
+    },
+    "schema": {
+      "name": "payment_methods"
+    }
+  },
+  "fields": [
+    {
+      "collection": "payment_methods",
+      "field": "currency",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "currency",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 14,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": "USD",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 3,
+        "name": "currency",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "date_created",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "date_created",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 900,
+        "special": [
+          "date-created"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "date_created",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "timestamp"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "date_updated",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "date_updated",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 901,
+        "special": [
+          "date-updated"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "date_updated",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "timestamp"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "expires_on",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "expires_on",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 15,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "date",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "expires_on",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "date"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "id",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": false,
+        "is_primary_key": true,
+        "is_unique": true,
+        "max_length": null,
+        "name": "id",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "last_four",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "last_four",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 13,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 4,
+        "name": "last_four",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "name",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": false,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 120,
+        "name": "name",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "notes",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "notes",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 19,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "text",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "notes",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "text"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "provider",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "provider",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": [
+          "m2o"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": null,
+        "foreign_key_column": "id",
+        "foreign_key_table": "providers",
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "provider",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "secret_reference",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "secret_reference",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 16,
+        "special": [
+          "m2o"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": null,
+        "foreign_key_column": "id",
+        "foreign_key_table": "secret_references",
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "secret_reference",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "status",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Active",
+              "value": "active"
+            },
+            {
+              "text": "Inactive",
+              "value": "inactive"
+            },
+            {
+              "text": "Expired",
+              "value": "expired"
+            },
+            {
+              "text": "Archived",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 17,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": "active",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 32,
+        "name": "status",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "tags",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "tags",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": {
+          "template": "{{tags_id.name}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 800,
+        "special": [
+          "m2m"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "type": "alias"
+    },
+    {
+      "collection": "payment_methods",
+      "field": "type",
+      "meta": {
+        "collection": "payment_methods",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "type",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Card",
+              "value": "card"
+            },
+            {
+              "text": "Bank Account",
+              "value": "bank_account"
+            },
+            {
+              "text": "Paypal",
+              "value": "paypal"
+            },
+            {
+              "text": "Crypto",
+              "value": "crypto"
+            },
+            {
+              "text": "Other",
+              "value": "other"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": "card",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 32,
+        "name": "type",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "payment_methods"
+      },
+      "type": "string"
+    }
+  ],
+  "relations": [
+    {
+      "collection": "payment_methods",
+      "field": "provider",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "payment_methods",
+        "many_field": "provider",
+        "one_allowed_collections": null,
+        "one_collection": "providers",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "related_collection": "providers",
+      "schema": {
+        "column": "provider",
+        "constraint_name": "payment_methods_provider_foreign",
+        "foreign_key_column": "id",
+        "foreign_key_table": "providers",
+        "on_delete": "SET NULL",
+        "on_update": "NO ACTION",
+        "table": "payment_methods"
+      }
+    },
+    {
+      "collection": "payment_methods",
+      "field": "secret_reference",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "payment_methods",
+        "many_field": "secret_reference",
+        "one_allowed_collections": null,
+        "one_collection": "secret_references",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "related_collection": "secret_references",
+      "schema": {
+        "column": "secret_reference",
+        "constraint_name": "payment_methods_secret_reference_foreign",
+        "foreign_key_column": "id",
+        "foreign_key_table": "secret_references",
+        "on_delete": "SET NULL",
+        "on_update": "NO ACTION",
+        "table": "payment_methods"
+      }
+    }
+  ],
+  "systemFields": []
+}

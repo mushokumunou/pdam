@@ -1,0 +1,859 @@
+{
+  "collection": "subscriptions",
+  "definition": {
+    "collection": "subscriptions",
+    "meta": {
+      "accountability": "all",
+      "archive_app_filter": true,
+      "archive_field": "status",
+      "archive_value": "archived",
+      "autosave_revision_interval": null,
+      "collapse": "open",
+      "collection": "subscriptions",
+      "color": null,
+      "display_template": "{{name}}",
+      "group": "assets",
+      "hidden": false,
+      "icon": "autorenew",
+      "item_duplication_fields": null,
+      "note": "Recurring paid services",
+      "preview_url": null,
+      "singleton": false,
+      "sort": 50,
+      "sort_field": null,
+      "status": "active",
+      "translations": null,
+      "unarchive_value": "active",
+      "versioning": false
+    },
+    "schema": {
+      "name": "subscriptions"
+    }
+  },
+  "fields": [
+    {
+      "collection": "subscriptions",
+      "field": "account",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "account",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": [
+          "m2o"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": null,
+        "foreign_key_column": "id",
+        "foreign_key_table": "accounts",
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "account",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "auto_renew",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "auto_renew",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": {
+          "label": "auto renew"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 19,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "boolean",
+        "default_value": true,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "auto_renew",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "boolean"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "billing_cycle",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "billing_cycle",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Monthly",
+              "value": "monthly"
+            },
+            {
+              "text": "Quarterly",
+              "value": "quarterly"
+            },
+            {
+              "text": "Yearly",
+              "value": "yearly"
+            },
+            {
+              "text": "Custom",
+              "value": "custom"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 16,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": "monthly",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 32,
+        "name": "billing_cycle",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "currency",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "currency",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 15,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": "USD",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 3,
+        "name": "currency",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "date_created",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "date_created",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 900,
+        "special": [
+          "date-created"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "date_created",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "timestamp"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "date_updated",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "date_updated",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 901,
+        "special": [
+          "date-updated"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "date_updated",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "timestamp"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "id",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": false,
+        "is_primary_key": true,
+        "is_unique": true,
+        "max_length": null,
+        "name": "id",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "name",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": false,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 120,
+        "name": "name",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "notes",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "notes",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 22,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "text",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "notes",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "text"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "payment_method",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "payment_method",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 13,
+        "special": [
+          "m2o"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": null,
+        "foreign_key_column": "id",
+        "foreign_key_table": "payment_methods",
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "payment_method",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "price",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "price",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 14,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "numeric",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "price",
+        "numeric_precision": 12,
+        "numeric_scale": 2,
+        "table": "subscriptions"
+      },
+      "type": "decimal"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "provider",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "provider",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": [
+          "m2o"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "uuid",
+        "default_value": null,
+        "foreign_key_column": "id",
+        "foreign_key_table": "providers",
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "provider",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "uuid"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "renewal_on",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "renewal_on",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 17,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "date",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "renewal_on",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "date"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "started_on",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "started_on",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 18,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "date",
+        "default_value": null,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": null,
+        "name": "started_on",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "date"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "status",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Active",
+              "value": "active"
+            },
+            {
+              "text": "Inactive",
+              "value": "inactive"
+            },
+            {
+              "text": "Canceled",
+              "value": "canceled"
+            },
+            {
+              "text": "Archived",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 20,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "data_type": "character varying",
+        "default_value": "active",
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "is_generated": false,
+        "is_indexed": false,
+        "is_nullable": true,
+        "is_primary_key": false,
+        "is_unique": false,
+        "max_length": 32,
+        "name": "status",
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "table": "subscriptions"
+      },
+      "type": "string"
+    },
+    {
+      "collection": "subscriptions",
+      "field": "tags",
+      "meta": {
+        "collection": "subscriptions",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "tags",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": {
+          "template": "{{tags_id.name}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 800,
+        "special": [
+          "m2m"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "type": "alias"
+    }
+  ],
+  "relations": [
+    {
+      "collection": "subscriptions",
+      "field": "account",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "subscriptions",
+        "many_field": "account",
+        "one_allowed_collections": null,
+        "one_collection": "accounts",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "related_collection": "accounts",
+      "schema": {
+        "column": "account",
+        "constraint_name": "subscriptions_account_foreign",
+        "foreign_key_column": "id",
+        "foreign_key_table": "accounts",
+        "on_delete": "SET NULL",
+        "on_update": "NO ACTION",
+        "table": "subscriptions"
+      }
+    },
+    {
+      "collection": "subscriptions",
+      "field": "payment_method",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "subscriptions",
+        "many_field": "payment_method",
+        "one_allowed_collections": null,
+        "one_collection": "payment_methods",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "related_collection": "payment_methods",
+      "schema": {
+        "column": "payment_method",
+        "constraint_name": "subscriptions_payment_method_foreign",
+        "foreign_key_column": "id",
+        "foreign_key_table": "payment_methods",
+        "on_delete": "SET NULL",
+        "on_update": "NO ACTION",
+        "table": "subscriptions"
+      }
+    },
+    {
+      "collection": "subscriptions",
+      "field": "provider",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "subscriptions",
+        "many_field": "provider",
+        "one_allowed_collections": null,
+        "one_collection": "providers",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "related_collection": "providers",
+      "schema": {
+        "column": "provider",
+        "constraint_name": "subscriptions_provider_foreign",
+        "foreign_key_column": "id",
+        "foreign_key_table": "providers",
+        "on_delete": "SET NULL",
+        "on_update": "NO ACTION",
+        "table": "subscriptions"
+      }
+    }
+  ],
+  "systemFields": []
+}

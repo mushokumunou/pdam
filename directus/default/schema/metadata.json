@@ -1,6 +1,10 @@
 {
   "files": [
+    "accounts-tags_714fb54ebba6286f.json",
+    "accounts_bc62a3c14fec277e.json",
+    "asset-index_4040cfde2a74ab51.json",
     "assets_8bf729ffe074caee.json",
+    "derived_08f0be883564cbf2.json",
     "directus-activity_063739d0b530e17d.json",
     "directus-oauth-clients_63efa385b417eab7.json",
     "directus-oauth-codes_b5c765e4a5d388cd.json",
@@ -8,7 +12,18 @@
     "directus-oauth-tokens_216e2f4a23a69aef.json",
     "directus-revisions_2a93ea27975f81ab.json",
     "directus-sessions_9fff20d7606f239c.json",
-    "providers_1e19bab29bc6432a.json"
+    "domains-tags_1ffe34e496010253.json",
+    "domains_1b0ec1954eec51e2.json",
+    "payment-methods-tags_78d63737acba3ffe.json",
+    "payment-methods_4cb9a0fa4edf61bc.json",
+    "providers_1e19bab29bc6432a.json",
+    "reference_52367a6622b19f08.json",
+    "secret-references_b0150abd4f6891ce.json",
+    "subscriptions-tags_8b472072a79590eb.json",
+    "subscriptions_9cac91c1f544236a.json",
+    "tags_978c2f8941354cf5.json",
+    "vps-tags_b2fbed040c715827.json",
+    "vps_cfe062be1bbee227.json"
   ],
   "snapshot": {
     "directus": "12.6.1",

@@ -1,0 +1,115 @@
+{
+  "slug": "payment_methods",
+  "name": "Payment Methods",
+  "icon": "credit_card",
+  "note": "Cards and other rails subscriptions charge",
+  "sort": 20,
+  "group": "assets",
+  "display_template": "{{name}}",
+  "archive": {
+    "field": "status",
+    "value": "archived",
+    "unarchive": "active"
+  },
+  "list": {
+    "sort": [
+      "name"
+    ],
+    "columns": [
+      "name",
+      "type",
+      "last_four",
+      "currency",
+      "expires_on",
+      "status"
+    ],
+    "widths": {
+      "name": 220,
+      "type": 130,
+      "last_four": 100,
+      "currency": 100,
+      "expires_on": 140,
+      "status": 110
+    }
+  },
+  "index": {
+    "name": "name",
+    "provider": "provider.name",
+    "account": null,
+    "expires": "expires_on",
+    "renewal": null,
+    "extra": [
+      "last_four",
+      "type"
+    ]
+  },
+  "fields": [
+    {
+      "field": "name",
+      "type": "string",
+      "length": 120,
+      "required": true
+    },
+    {
+      "field": "provider",
+      "type": "m2o",
+      "to": "providers",
+      "on_delete": "SET NULL",
+      "display": "provider.name"
+    },
+    {
+      "field": "type",
+      "type": "select",
+      "default": "card",
+      "choices": [
+        "card",
+        "bank_account",
+        "paypal",
+        "crypto",
+        "other"
+      ]
+    },
+    {
+      "field": "last_four",
+      "type": "string",
+      "length": 4
+    },
+    {
+      "field": "currency",
+      "type": "string",
+      "length": 3,
+      "default": "USD"
+    },
+    {
+      "field": "expires_on",
+      "type": "date"
+    },
+    {
+      "field": "secret_reference",
+      "type": "m2o",
+      "to": "secret_references",
+      "on_delete": "SET NULL",
+      "display": "secret_reference.name"
+    },
+    {
+      "field": "status",
+      "type": "select",
+      "default": "active",
+      "choices": [
+        "active",
+        "inactive",
+        "expired",
+        "archived"
+      ]
+    },
+    {
+      "field": "tags",
+      "type": "tags",
+      "to": "tags"
+    },
+    {
+      "field": "notes",
+      "type": "text"
+    }
+  ]
+}
