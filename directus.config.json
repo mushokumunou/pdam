@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "pdam": {
+      "url": "https://pdam.8w8.xyz",
+      "auth": {
+        "type": "token"
+      }
+    }
+  }
+}

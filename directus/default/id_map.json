@@ -1,0 +1,23 @@
+{
+  "formatVersion": 1,
+  "maps": {
+    "https://pdam.8w8.xyz": {
+      "https://pdam.8w8.xyz": {
+        "directus_access": {
+          "22f3426a-c854-4c10-8260-d35aa32192cc": "22f3426a-c854-4c10-8260-d35aa32192cc",
+          "bd344ad5-0b2d-4ab8-bfd7-0df8c0862aa2": "bd344ad5-0b2d-4ab8-bfd7-0df8c0862aa2"
+        },
+        "directus_policies": {
+          "3591ba50-bff5-4f66-9b21-de5e41b50712": "3591ba50-bff5-4f66-9b21-de5e41b50712",
+          "abf8a154-5b1c-4a46-ac9c-7300570f4f17": "abf8a154-5b1c-4a46-ac9c-7300570f4f17"
+        },
+        "directus_roles": {
+          "9e36b817-ef15-401c-a86c-d51aef71caae": "9e36b817-ef15-401c-a86c-d51aef71caae"
+        },
+        "directus_settings": {
+          "1": "1"
+        }
+      }
+    }
+  }
+}

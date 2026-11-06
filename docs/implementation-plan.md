@@ -1,0 +1,139 @@
+# Implementation plan
+
+Each phase ends with: it runs, it is verified, schema/relations/API checked, docs updated, commit.
+"No phase is done because the code looks right."
+
+Status legend: **[done]** verified on `pdam.8w8.xyz` · **[next]** · **[ ]** planned
+
+---
+
+## Phase 0 — Architecture (this document set) **[done]**
+
+- Verified Directus 12.6.1 capabilities against a live instance (see `architecture.md` §2).
+- Compared single table / EAV / base+extension / typed collections / DB views.
+- Chose typed collections + `asset_index` read model; wrote ADR-001…006.
+- Wrote `architecture.md`, `data-model.md`, `template-system.md`, `agent-api.md`, this plan.
+
+**Verified during Phase 0** (not assumed): sync round-trip (`d6s pull → edit → push` recreated a
+7-field collection with "schema hash verified"), presets captured in sync files, nav group
+enumeration, MCP `initialize`/`tools/list`, DB views rejected by Directus.
+
+---
+
+## Phase 1 — Infrastructure **[done]**
+
+| Item | State |
+|---|---|
+| Container `pdam` (`directus/directus:12.6.1`) on `proxy_net` | running, `restart: unless-stopped` |
+| Shared PostgreSQL 18 (`postgres` container, db `pdam`, user `admin`) | reused, not a new instance |
+| TLS | Caddy `pdam.8w8.xyz` → `pdam:8055`, Let's Encrypt DNS-01 (issuer verified in logs) |
+| DNS | AAAA `pdam.8w8.xyz` → host IPv6, Cloudflare proxied |
+| Admin | `admin@8w8.xyz` / password from `.env` |
+| Static admin token for CLI/MCP | issued, stored outside git |
+| MCP | enabled (`settings.mcp_enabled = true`), tools listed |
+| Volumes | `/opt/data/pdam/uploads`, `/opt/data/pdam/extensions` |
+
+Verification used: `POST /auth/login` → 200 + token; `GET /server/ping` → `pong` from inside the
+container and 200 through Cloudflare.
+
+---
+
+## Phase 2 — Base data model **[next]**
+
+Build the six reference/asset collections that everything else depends on, plus the generator.
+
+1. `templates/providers.json`, `tags.json`, `secret_references.json`, `accounts.json` (spec files).
+2. `scripts/generate.py` — spec → Directus collection JSON (`directus/default/schema/*.json`),
+   merge into `directus/default/data/directus-presets*.json`, update `metadata.json`.
+3. `d6s sync diff --to pdam` → review → `d6s sync push --to pdam`.
+4. `scripts/asset_index.sql` — table + `pdam_index_sync()` + triggers + `pdam_index_rebuild()`.
+5. Register `asset_index` as a read-only collection (readonly fields, no write permission).
+
+**Verify:** `GET /fields/accounts`, `GET /relations?filter[collection][_eq]=accounts]`,
+`POST /items/providers` then `POST /items/accounts` with that provider, `GET /items/asset_index`
+returns the account row with `provider_name`, `d6s sync pull` produces no diff (idempotent).
+
+---
+
+## Phase 3 — First templates
+
+`vps`, `domains`, `subscriptions`, `payment_methods` from spec files; tags M2M junctions; index
+mappings; one global preset per template with its own columns/widths/sort.
+
+**Verify (brief Scenario 1/2):** `GET /items/vps` and `GET /items/domains` return disjoint sets;
+each preset lists its own columns; creating a VPS rejects `registrar` (a Domain field).
+
+---
+
+## Phase 4 — Template-driven views **[the acceptance test]**
+
+1. Nav group `assets` holds all five types with icons and `sort`.
+2. `[All]` = `asset_index` collection page (columns: name, template, provider, status, expires).
+3. Each type page = native collection page + its preset.
+4. Dashboard (Insights): asset counts by type, expiring ≤30 days, upcoming renewals, status split,
+   provider distribution, recent changes — all over `asset_index`/typed collections.
+
+**Verify:** switch types → columns change, `/items/<type>` unchanged, Add form differs per type,
+All list shows all five, counts match `meta.filter_count` per collection.
+
+*If the tab strip itself is requested later*, it is one small module reading
+`GET /collections?filter[group][_eq]=assets` that links to native pages — no CRUD reimplementation.
+
+---
+
+## Phase 5 — Relations and graph queries
+
+Chain `providers → accounts → {vps, domains, subscriptions}`, `subscriptions → payment_methods`,
+`domains → vps.primary_server`.
+
+**Verify (brief §34):** Cloudflare/3 domains, Hetzner/2 VPS, OpenAI/ChatGPT/Wise card — each
+acceptance chain returns the right rows via deep filters, and `asset_index` provider/account
+columns match.
+
+---
+
+## Phase 6 — Dashboard polish
+
+Filters on the dashboard (status, provider), "expiring soon" list panel, click-through to the
+filtered collection page. No aggregation tables; all panels are queries.
+
+---
+
+## Phase 7 — Secret boundary
+
+Seed `secret_references` usage on `accounts` + `payment_methods`; permissions so the reference
+column is admin-visible only; document the Vaultwarden item-id convention; add a lint query that
+fails if any template declares a field named `password`/`secret`/`token`/`private_key`.
+
+---
+
+## Phase 8 — Agent surface
+
+1. Agent policy + dedicated static token (not admin), `mcp_allow_deletes = false`.
+2. `/mcp` smoke test with the 10 queries from `agent-api.md`.
+3. Optional: thin CLI/MCP wrapper + Hermes skill, generated from `GET /collections` — no hard-coded
+   type list.
+
+**Verify:** every query in `agent-api.md` returns the expected shape; a create→archive round-trip
+through MCP only.
+
+---
+
+## Phase 9 — Extensibility proof (Certificate)
+
+Add `templates/certificate.json`, regenerate, push, run index SQL. Measure the diff:
+
+- files changed: 1 spec + 1 generated schema + presets JSON + index SQL (all generated)
+- application code changed: **0**
+- UI: new tab, new list, new form appear with no deploy
+
+If that measurement fails, revisit ADR-002/003 before writing more templates.
+
+---
+
+## Continuous rules
+
+- `d6s sync pull` after any Studio edit; `d6s sync diff` before any push; never push blind.
+- Backups: `pg_dump` (content) + `directus/` (shape). Both, every time.
+- Directus upgrades: bump image tag → boot → `d6s sync pull` (new baseline) → commit.
+- Every new template: check it does not add a secret-bearing field name (Phase 7 lint).

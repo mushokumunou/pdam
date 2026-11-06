@@ -1,0 +1,15 @@
+services:
+  pdam:
+    image: directus/directus:12.6.1
+    container_name: pdam
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ${PDAM_DATA_DIR:-./data}/uploads:/directus/uploads
+      - ${PDAM_DATA_DIR:-./data}/extensions:/directus/extensions
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
+    external: true
