@@ -7,13 +7,49 @@
   "group": "reference",
   "display_template": "{{name}}",
   "list": {
-    "sort": ["name"],
-    "columns": ["name", "slug", "color"],
-    "widths": { "name": 220, "slug": 180, "color": 120 }
+    "sort": [
+      "name"
+    ],
+    "columns": [
+      "name",
+      "slug",
+      "color"
+    ],
+    "widths": {
+      "name": 220,
+      "slug": 180,
+      "color": 120
+    }
   },
   "fields": [
-    { "field": "name", "type": "string", "length": 60, "required": true, "unique": true },
-    { "field": "slug", "type": "string", "length": 60, "required": true, "unique": true },
-    { "field": "color", "type": "string", "length": 9, "placeholder": "#rrggbb" }
+    {
+      "field": "name",
+      "type": "string",
+      "length": 60,
+      "required": true,
+      "unique": true,
+      "group": "basics"
+    },
+    {
+      "field": "slug",
+      "type": "string",
+      "length": 60,
+      "required": true,
+      "unique": true,
+      "group": "basics"
+    },
+    {
+      "field": "color",
+      "type": "string",
+      "length": 9,
+      "placeholder": "#rrggbb",
+      "group": "basics"
+    }
+  ],
+  "groups": [
+    {
+      "field": "basics",
+      "title": "Basics"
+    }
   ]
 }

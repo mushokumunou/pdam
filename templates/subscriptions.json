@@ -6,11 +6,33 @@
   "sort": 50,
   "group": "assets",
   "display_template": "{{name}}",
-  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "archive": {
+    "field": "status",
+    "value": "archived",
+    "unarchive": "active"
+  },
   "list": {
-    "sort": ["renewal_on"],
-    "columns": ["name", "provider", "price", "currency", "billing_cycle", "renewal_on", "status"],
-    "widths": { "name": 200, "provider": 140, "price": 100, "currency": 90, "billing_cycle": 120, "renewal_on": 140, "status": 110 }
+    "sort": [
+      "renewal_on"
+    ],
+    "columns": [
+      "name",
+      "provider",
+      "price",
+      "currency",
+      "billing_cycle",
+      "renewal_on",
+      "status"
+    ],
+    "widths": {
+      "name": 200,
+      "provider": 140,
+      "price": 100,
+      "currency": 90,
+      "billing_cycle": 120,
+      "renewal_on": 140,
+      "status": 110
+    }
   },
   "index": {
     "name": "name",
@@ -18,26 +40,126 @@
     "account": "account.name",
     "expires": null,
     "renewal": "renewal_on",
-    "extra": ["billing_cycle", "currency", "price"]
+    "extra": [
+      "billing_cycle",
+      "currency",
+      "price"
+    ]
   },
   "fields": [
-    { "field": "name", "type": "string", "length": 120, "required": true },
-    { "field": "provider", "type": "m2o", "to": "providers",
-      "on_delete": "SET NULL", "display": "provider.name" },
-    { "field": "account", "type": "m2o", "to": "accounts",
-      "on_delete": "SET NULL", "display": "account.name" },
-    { "field": "payment_method", "type": "m2o", "to": "payment_methods",
-      "on_delete": "SET NULL", "display": "payment_method.name" },
-    { "field": "price", "type": "decimal", "precision": 12, "scale": 2 },
-    { "field": "currency", "type": "string", "length": 3, "default": "USD" },
-    { "field": "billing_cycle", "type": "select", "default": "monthly",
-      "choices": ["monthly", "quarterly", "yearly", "custom"] },
-    { "field": "renewal_on", "type": "date" },
-    { "field": "started_on", "type": "date" },
-    { "field": "auto_renew", "type": "boolean", "default": true },
-    { "field": "status", "type": "select", "default": "active",
-      "choices": ["active", "inactive", "canceled", "archived"] },
-    { "field": "tags", "type": "tags", "to": "tags" },
-    { "field": "notes", "type": "text" }
+    {
+      "field": "name",
+      "type": "string",
+      "length": 120,
+      "required": true,
+      "group": "basics"
+    },
+    {
+      "field": "provider",
+      "type": "m2o",
+      "to": "providers",
+      "on_delete": "SET NULL",
+      "display": "provider.name",
+      "group": "basics"
+    },
+    {
+      "field": "account",
+      "type": "m2o",
+      "to": "accounts",
+      "on_delete": "SET NULL",
+      "display": "account.name",
+      "group": "basics"
+    },
+    {
+      "field": "payment_method",
+      "type": "m2o",
+      "to": "payment_methods",
+      "on_delete": "SET NULL",
+      "display": "payment_method.name",
+      "group": "basics"
+    },
+    {
+      "field": "price",
+      "type": "decimal",
+      "precision": 12,
+      "scale": 2,
+      "group": "billing"
+    },
+    {
+      "field": "currency",
+      "type": "string",
+      "length": 3,
+      "default": "USD",
+      "group": "billing"
+    },
+    {
+      "field": "billing_cycle",
+      "type": "select",
+      "default": "monthly",
+      "choices": [
+        "monthly",
+        "quarterly",
+        "yearly",
+        "custom"
+      ],
+      "group": "billing"
+    },
+    {
+      "field": "renewal_on",
+      "type": "date",
+      "group": "billing"
+    },
+    {
+      "field": "started_on",
+      "type": "date",
+      "group": "billing"
+    },
+    {
+      "field": "auto_renew",
+      "type": "boolean",
+      "default": true,
+      "group": "billing"
+    },
+    {
+      "field": "status",
+      "type": "select",
+      "default": "active",
+      "choices": [
+        "active",
+        "inactive",
+        "canceled",
+        "archived"
+      ],
+      "group": "lifecycle"
+    },
+    {
+      "field": "tags",
+      "type": "tags",
+      "to": "tags",
+      "group": "extra"
+    },
+    {
+      "field": "notes",
+      "type": "text",
+      "group": "extra"
+    }
+  ],
+  "groups": [
+    {
+      "field": "basics",
+      "title": "Basics"
+    },
+    {
+      "field": "billing",
+      "title": "Billing"
+    },
+    {
+      "field": "lifecycle",
+      "title": "Lifecycle"
+    },
+    {
+      "field": "extra",
+      "title": "Tags & Notes"
+    }
   ]
 }

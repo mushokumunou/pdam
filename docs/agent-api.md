@@ -138,3 +138,33 @@ Rate limiting is enabled instance-wide (`RATE_LIMITER_*`); batch reads, don't lo
 No custom query language, no bespoke CLI grammar, no write-only "agent tables". The CLI/MCP/skill
 layer, when it arrives, is a thin wrapper over these REST calls so that human and agent capability
 cannot diverge.
+
+## 7. Verified query set (Phase 2-5 acceptance run)
+
+Executed against `pdam.8w8.xyz` on Directus 12.6.1; `scripts/verify_phase2_5.py` re-runs all of
+these (30/30 green).
+
+| purpose | call | observed |
+|---|---|---|
+| discover asset types | `GET /collections?fields=collection,meta.group` then keep `meta.group == "assets"` | `accounts, domains, payment_methods, subscriptions, vps` |
+| discover a template's fields | `GET /fields/vps` | 15 fields, m2o/m2m specials included |
+| discover relations | `GET /relations?limit=500` (filter client-side) | 23 app relations |
+| all VPS with provider | `GET /items/vps?fields=name,status,provider.name` | 2 rows |
+| VPS by provider | `GET /items/vps?filter[provider][slug][_eq]=hetzner` | 2 rows |
+| domains by account | `GET /items/domains?filter[account][name][_eq]=Cloudflare Personal` | 3 rows |
+| subscriptions by card | `GET /items/subscriptions?filter[payment_method][_eq]=<id>` | 1 row |
+| assets by tag | `GET /items/vps?filter[tags][tags_id][name][_eq]=production` | 1 row |
+| all assets (one table) | `GET /items/asset_index?fields=template,name,provider_name,status` | 10 rows over 5 types |
+| cross-type search | `GET /items/asset_index?filter[search_text][_contains]=cloudflare` | domains + account |
+| reverse lookup | `GET /items/asset_index?filter[asset_id][_eq]=<uuid>` | 1 row |
+| create / update / archive | `POST /items/vps`, `PATCH /items/vps/<id>` `{status:"archived"}` | projection follows every step |
+| delete asset | `DELETE /items/vps/<id>` | 204, projection row removed |
+
+Error semantics observed:
+
+- Deleting a provider that still has accounts/VPS returns **HTTP 500** with a foreign-key violation
+  message (Directus does not map `RESTRICT` to 409). The delete is still correctly refused; agents
+  should treat 500-on-delete as "still referenced" and re-check.
+- Archiving is `PATCH {status:"archived"}`; the row remains in `asset_index` with that status, which
+  is intentional: archived assets are still assets, they are not deleted.
+- `DELETE` on an unknown id returns 204 and changes nothing.

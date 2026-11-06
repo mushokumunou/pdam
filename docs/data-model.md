@@ -259,3 +259,44 @@ follow the trigger and remain queryable (archived assets are still assets).
   would trade FK integrity for flexibility nobody asked for. Add the junction only if a real
   many-to-many asset-to-asset relation appears.
 - `secrets` — never (ADR-005).
+
+
+## 16. Implemented form layout (field groups)
+
+Every collection ships alias "group" fields (`type: alias`, `special: ["group"]`,
+`interface: group-detail`) so the create/edit drawer is sectioned instead of one long list:
+
+| collection | groups |
+|---|---|
+| vps | Basics (name, provider, account, hostname) · Network (ipv4, ipv6, region, os) · Lifecycle (status, expires_on) · Tags and Notes |
+| domains | Basics (name, registrar, account, dns_provider, primary_server) · Lifecycle (status, expires_on, auto_renew) · Tags and Notes |
+| accounts | Basics (name, provider, username, email, url, secret_reference, status) · Tags and Notes |
+| subscriptions | Basics (name, provider, account, payment_method) · Billing (price, currency, billing_cycle, renewal_on, started_on, auto_renew) · Lifecycle (status) · Tags and Notes |
+| payment_methods | Basics (name, provider, type, last_four, currency) · Lifecycle (status, expires_on) · Tags and Notes (secret_reference, tags, notes) |
+| secret_references | Basics (name, secret_type, provider, reference, vault_url, last_rotated_at, status) · Notes |
+| providers | Basics (name, slug, category, website, status) · Notes |
+
+Displays: `select` -> labels, `date`/`timestamp` -> datetime, `m2o` -> related-values with
+`{{name}}` template, `m2m tags` -> list-m2m with `{{tags_id.name}}`.
+
+## 17. Delete behaviour (verified)
+
+| deleted row | effect | observed |
+|---|---|---|
+| provider referenced by accounts/VPS | **blocked** — `RESTRICT` FK violation; Directus returns HTTP **500** (not 400) | row and assets survive |
+| tag in use | junction rows cascade, **assets untouched**, `asset_index.tags` recomputed | asset still exists |
+| account referenced by vps | `vps.account = NULL`, VPS survives | verified |
+| payment_method referenced by subscription | `subscriptions.payment_method = NULL` | verified |
+| secret_reference referenced by account | `accounts.secret_reference = NULL` | verified |
+| asset (vps/domains/...) | its `asset_index` row is deleted by trigger (no orphan) | verified |
+
+Nothing cascades into asset deletion: there is no `ON DELETE CASCADE` on any asset->parent FK.
+
+## 18. asset_index identity and rebuilding
+
+- Identity: `UNIQUE (template, asset_id)` plus PK on `asset_id`; reverse lookup is
+  `GET /items/asset_index?filter[asset_id][_eq]=<uuid>`.
+- Rebuild: `SELECT pdam_index_rebuild();` — re-derives every row from the typed tables.
+  Safe to run repeatedly (verified: 10 -> 10 rows, 0 duplicates), and after
+  `TRUNCATE asset_index` it restores the full projection (verified).
+- Disposable: dropping every row loses nothing but the All list until the next rebuild.

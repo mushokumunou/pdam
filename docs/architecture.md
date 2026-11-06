@@ -173,31 +173,46 @@ kept, by design.
 
 ### ADR-006 — Unified "All assets" and cross-type search: `asset_index` read model
 
-**Decision.** One real table `asset_index`, maintained by PostgreSQL triggers on every asset table
-(after insert/update/delete), exposed as a read-only Directus collection:
+**Decision (implemented in Phase 5).** One real table `asset_index`, maintained by PostgreSQL
+triggers on every asset table and on every tags junction, exposed as a read-only Directus
+collection:
 
 ```
 asset_index(
-  asset_id uuid PK, template text, name text, status text,
-  provider_name text, account_name text,
+  asset_id uuid PK,                 -- one row per typed asset
+  template varchar(60) NOT NULL,    -- source collection slug
+  name text, status varchar(32),
+  provider_name text, account_name text,   -- denormalised for cross-type search
   expires_on date, renewal_on date, tags text,
-  search_text text,        -- lower(name || provider || account || tags || identifiers)
+  search_text text,                 -- lower(name ⊕ provider ⊕ account ⊕ tags ⊕ type-specific)
   updated_at timestamptz
 )
+UNIQUE (template, asset_id)         -- explicit identity contract
 ```
 
-Triggers are generated from the same template spec, one `pdam_index_sync()` function plus one
-trigger per asset table, and a `pdam_index_rebuild()` backfill.
+Maintenance: `pdam_idx_<template>(uuid)` recomputes one row (joined tags, provider, account),
+called by `AFTER INSERT/UPDATE/DELETE` triggers on the typed table and by triggers on
+`<collection>_tags`. `pdam_index_rebuild()` truncates nothing — it deletes and re-derives every row
+from the typed collections, so the projection is disposable.
+
+**Never a source of truth.** Nothing writes to it except the trigger functions: Directus fields are
+`readonly`, the collection has no create/edit workflow in the product, and there is no code path
+that posts to `/items/asset_index`. If the table is empty or dropped, `pdam_index_rebuild()`
+restores it exactly.
 
 **Why.** Directus cannot union collections and cannot expose views (ADR-001), but a single query
-over `asset_index` gives: the All list with native sort/filter/search, dashboard panels
-(counts per type, expiring in 30 days, status breakdown, provider breakdown) without N queries,
-and a one-call agent endpoint (`GET /items/asset_index?search=hetzner`) that is *relation-aware*
-because provider/account names are denormalised into it.
+over `asset_index` gives: the All list with native sort/filter/search, dashboard panels without
+N queries, and a one-call agent endpoint (`GET /items/asset_index?search=hetzner`) that is
+*relation-aware* because provider/account names are denormalised into it.
 
-**Cost.** One denormalised table (~12 columns) and generated triggers. It is derived data: writes
-go to the typed collections, never here. If it is ever dropped, the system still works per type;
-only All/search degrades.
+**Verified in Phase 5** (all 30 checks green, see `scripts/verify_phase2_5.py`): create → row
+appears; rename → name updates; provider change → provider_name updates; tag add/remove → tags
+updates; archive → row stays with `status=archived`; delete → row disappears; rebuild twice keeps
+the same row count with zero duplicates; `TRUNCATE asset_index` followed by rebuild restores all
+rows; cross-type search by provider name returns rows from several templates.
+
+**Cost.** One denormalised table and generated triggers. It is derived data: writes go to the typed
+collections, never here.
 
 **Rejected alternative.** Read-only SQL view — impossible. Custom endpoint merging N collections —
 works for agents, but leaves the Studio without an All list and pushes aggregation into code.

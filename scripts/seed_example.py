@@ -84,29 +84,29 @@ def main():
             "name": name, "provider": prov[provider], "email": email,
             "username": email.split("@")[0], "url": "https://example.com", "status": "active"})
 
-    pm = ensure("payment_methods", "name", "Wise Card", {
-        "name": "Wise Card", "provider": prov["wise"], "type": "card", "last_four": "4242",
+    pm = ensure("payment_methods", "name", "Wise Test Card", {
+        "name": "Wise Test Card", "provider": prov["wise"], "type": "card", "last_four": "4242",
         "currency": "USD", "expires_on": str(TODAY + dt.timedelta(days=400)),
         "status": "active"})
 
     vps = {}
-    for name, region, os_, ip in (("Tokyo-01", "Tokyo", "Debian 13", "203.0.113.10"),
-                                  ("Falkenstein-01", "Falkenstein", "Ubuntu 24.04", "203.0.113.20")):
+    for name, region, os_, ip in (("Tokyo-Test-VPS", "Tokyo", "Debian 13", "203.0.113.10"),
+                                  ("Falkenstein-Test-VPS", "Falkenstein", "Ubuntu 24.04", "203.0.113.20")):
         vps[name] = ensure("vps", "name", name, {
             "name": name, "provider": prov["hetzner"], "account": acct["Hetzner Personal"],
             "hostname": f"{name.lower()}.example.com", "ipv4": ip, "region": region, "os": os_,
             "status": "active", "expires_on": str(TODAY + dt.timedelta(days=180))})
 
     dom = {}
-    for i, d in enumerate(("example.com", "example.net", "example.org")):
+    for i, d in enumerate(("example-test.com", "example-test.net", "example-test.org")):
         dom[d] = ensure("domains", "name", d, {
             "name": d, "registrar": prov["cloudflare"], "account": acct["Cloudflare Personal"],
             "dns_provider": prov["cloudflare"], "primary_server": vps["Tokyo-01"],
             "expires_on": str(TODAY + dt.timedelta(days=30 + i * 200)), "auto_renew": True,
             "status": "active"})
 
-    sub = ensure("subscriptions", "name", "ChatGPT Plus", {
-        "name": "ChatGPT Plus", "provider": prov["openai"], "account": acct["OpenAI Personal"],
+    sub = ensure("subscriptions", "name", "ChatGPT Test Subscription", {
+        "name": "ChatGPT Test Subscription", "provider": prov["openai"], "account": acct["OpenAI Personal"],
         "payment_method": pm, "price": 20.00, "currency": "USD", "billing_cycle": "monthly",
         "renewal_on": str(TODAY + dt.timedelta(days=14)),
         "started_on": str(TODAY - dt.timedelta(days=200)), "auto_renew": True, "status": "active"})

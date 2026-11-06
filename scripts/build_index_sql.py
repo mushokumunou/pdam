@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS asset_index (
   search_text  text,
   updated_at   timestamptz NOT NULL DEFAULT now()
 );
+-- identity: one row per typed asset; (template, asset_id) is unique by contract
+ALTER TABLE asset_index DROP CONSTRAINT IF EXISTS asset_index_identity_uk;
+ALTER TABLE asset_index ADD CONSTRAINT asset_index_identity_uk UNIQUE (template, asset_id);
 CREATE INDEX IF NOT EXISTS asset_index_template_idx ON asset_index (template);
 CREATE INDEX IF NOT EXISTS asset_index_status_idx   ON asset_index (status);
 CREATE INDEX IF NOT EXISTS asset_index_expires_idx  ON asset_index (expires_on);

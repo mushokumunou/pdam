@@ -6,11 +6,29 @@
   "sort": 40,
   "group": "assets",
   "display_template": "{{name}}",
-  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "archive": {
+    "field": "status",
+    "value": "archived",
+    "unarchive": "active"
+  },
   "list": {
-    "sort": ["name"],
-    "columns": ["name", "registrar", "expires_on", "auto_renew", "status"],
-    "widths": { "name": 240, "registrar": 160, "expires_on": 140, "auto_renew": 110, "status": 110 }
+    "sort": [
+      "name"
+    ],
+    "columns": [
+      "name",
+      "registrar",
+      "expires_on",
+      "auto_renew",
+      "status"
+    ],
+    "widths": {
+      "name": 240,
+      "registrar": 160,
+      "expires_on": 140,
+      "auto_renew": 110,
+      "status": 110
+    }
   },
   "index": {
     "name": "name",
@@ -18,24 +36,99 @@
     "account": "account.name",
     "expires": "expires_on",
     "renewal": null,
-    "extra": ["auto_renew"]
+    "extra": [
+      "auto_renew"
+    ]
   },
   "fields": [
-    { "field": "name", "type": "string", "length": 190, "required": true, "unique": true,
-      "note": "FQDN, lower-case" },
-    { "field": "registrar", "type": "m2o", "to": "providers",
-      "on_delete": "SET NULL", "display": "registrar.name" },
-    { "field": "account", "type": "m2o", "to": "accounts",
-      "on_delete": "SET NULL", "display": "account.name" },
-    { "field": "dns_provider", "type": "m2o", "to": "providers",
-      "on_delete": "SET NULL", "display": "dns_provider.name" },
-    { "field": "primary_server", "type": "m2o", "to": "vps",
-      "on_delete": "SET NULL", "display": "primary_server.name" },
-    { "field": "expires_on", "type": "date" },
-    { "field": "auto_renew", "type": "boolean", "default": true },
-    { "field": "status", "type": "select", "default": "active",
-      "choices": ["active", "inactive", "expired", "archived"] },
-    { "field": "tags", "type": "tags", "to": "tags" },
-    { "field": "notes", "type": "text" }
+    {
+      "field": "name",
+      "type": "string",
+      "length": 190,
+      "required": true,
+      "unique": true,
+      "note": "FQDN, lower-case",
+      "group": "basics"
+    },
+    {
+      "field": "registrar",
+      "type": "m2o",
+      "to": "providers",
+      "on_delete": "SET NULL",
+      "display": "registrar.name",
+      "group": "basics"
+    },
+    {
+      "field": "account",
+      "type": "m2o",
+      "to": "accounts",
+      "on_delete": "SET NULL",
+      "display": "account.name",
+      "group": "basics"
+    },
+    {
+      "field": "dns_provider",
+      "type": "m2o",
+      "to": "providers",
+      "on_delete": "SET NULL",
+      "display": "dns_provider.name",
+      "group": "basics"
+    },
+    {
+      "field": "primary_server",
+      "type": "m2o",
+      "to": "vps",
+      "on_delete": "SET NULL",
+      "display": "primary_server.name",
+      "group": "basics"
+    },
+    {
+      "field": "expires_on",
+      "type": "date",
+      "group": "lifecycle"
+    },
+    {
+      "field": "auto_renew",
+      "type": "boolean",
+      "default": true,
+      "group": "lifecycle"
+    },
+    {
+      "field": "status",
+      "type": "select",
+      "default": "active",
+      "choices": [
+        "active",
+        "inactive",
+        "expired",
+        "archived"
+      ],
+      "group": "lifecycle"
+    },
+    {
+      "field": "tags",
+      "type": "tags",
+      "to": "tags",
+      "group": "extra"
+    },
+    {
+      "field": "notes",
+      "type": "text",
+      "group": "extra"
+    }
+  ],
+  "groups": [
+    {
+      "field": "basics",
+      "title": "Basics"
+    },
+    {
+      "field": "lifecycle",
+      "title": "Lifecycle"
+    },
+    {
+      "field": "extra",
+      "title": "Tags & Notes"
+    }
   ]
 }

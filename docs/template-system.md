@@ -104,9 +104,14 @@ Never edit both sides at once: pull before you push.
 }
 ```
 
-`generate.py` owns the boring parts: uuid PK, `date_created`/`date_updated`, `sort` numbering,
-`width: full`, interface defaults, junction collection names, preset record shape, and appending
-the collection to `metadata.json` so `d6s` sees it.
+`scripts/apply_templates.py` owns the boring parts: uuid PK, `date_created`/`date_updated`,
+`sort` numbering, `width: full`, interface and display defaults, group alias fields, junction
+collection names, m2o/m2m relations, preset record shape, and (for `asset_index`) projection
+registration. It is idempotent: re-running patches meta drift and adds only what is missing.
+
+Spec keys implemented: `slug, name, icon, note, sort, group, display_template, archive, groups,
+list{sort,columns,widths}, index{name,provider,account,expires,renewal,extra}, fields[]`
+with field types `string, text, integer, decimal, boolean, date, timestamp, select, m2o, tags`.
 
 ## 5. Nav tab, then list, then form
 

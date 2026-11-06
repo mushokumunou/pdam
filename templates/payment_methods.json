@@ -48,14 +48,16 @@
       "field": "name",
       "type": "string",
       "length": 120,
-      "required": true
+      "required": true,
+      "group": "basics"
     },
     {
       "field": "provider",
       "type": "m2o",
       "to": "providers",
       "on_delete": "SET NULL",
-      "display": "provider.name"
+      "display": "provider.name",
+      "group": "basics"
     },
     {
       "field": "type",
@@ -67,29 +69,34 @@
         "paypal",
         "crypto",
         "other"
-      ]
+      ],
+      "group": "basics"
     },
     {
       "field": "last_four",
       "type": "string",
-      "length": 4
+      "length": 4,
+      "group": "basics"
     },
     {
       "field": "currency",
       "type": "string",
       "length": 3,
-      "default": "USD"
+      "default": "USD",
+      "group": "basics"
     },
     {
       "field": "expires_on",
-      "type": "date"
+      "type": "date",
+      "group": "lifecycle"
     },
     {
       "field": "secret_reference",
       "type": "m2o",
       "to": "secret_references",
       "on_delete": "SET NULL",
-      "display": "secret_reference.name"
+      "display": "secret_reference.name",
+      "group": "extra"
     },
     {
       "field": "status",
@@ -100,16 +107,33 @@
         "inactive",
         "expired",
         "archived"
-      ]
+      ],
+      "group": "lifecycle"
     },
     {
       "field": "tags",
       "type": "tags",
-      "to": "tags"
+      "to": "tags",
+      "group": "extra"
     },
     {
       "field": "notes",
-      "type": "text"
+      "type": "text",
+      "group": "extra"
+    }
+  ],
+  "groups": [
+    {
+      "field": "basics",
+      "title": "Basics"
+    },
+    {
+      "field": "lifecycle",
+      "title": "Lifecycle"
+    },
+    {
+      "field": "extra",
+      "title": "Tags & Notes"
     }
   ]
 }
