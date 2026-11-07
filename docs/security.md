@@ -137,6 +137,24 @@ During verification this was observed live (two test rows were updated by an uns
 data was restored, and both scoped forms (`keys`, `query.filter`) were re-tested and update exactly
 one row.
 
+## 7a. Mutation guard for agents (tooling layer, not a boundary)
+
+Directus' MCP `items` tool updates **every row** when neither `keys` nor `query.filter` is given.
+That is not fixable through permissions on this licence (row rules are gated), so PDAM ships
+`scripts/agent_guard.py`:
+
+- a pure function `guard_error(payload)` and a thin HTTP proxy (`--port 8787`) that forwards
+  `/mcp` unchanged except for one invariant: *an `items update` without non-empty `keys` and
+  without a non-empty `query.filter` is rejected before it is sent*;
+- `create`, `read`, other tools and `delete` pass through untouched (delete is refused downstream
+  by `mcp_allow_deletes=false` **and** the permission).
+
+**Honest scope:** this is a client-side/tooling guard. An agent that talks to `https://…/mcp`
+directly, bypassing the proxy, still holds collection-level UPDATE permission. The security
+boundary is the Directus policy; the guard exists so the supported agent path cannot mass-update by
+accident. Verified by `scripts/verify_mutation_guard.py` (17 checks, including "no rows changed by
+the rejected call" and both scoped forms affecting exactly one row).
+
 ## 8. Credential handling
 
 - Credentials never enter git: `.admin-token`, `.agent-token`, `.pdam-user-password`, `.env` are
@@ -178,6 +196,12 @@ The script uses three real identities (agent static token, human login, anonymou
 4. **`mcp_allow_deletes`** only disables the MCP tool; it is not a permission system.
 5. Directus surfaces a `RESTRICT` foreign-key violation as **HTTP 500**, not 409 (see
    `data-model.md` §17).
+6. **Unscoped batch update is possible** for any identity holding UPDATE (collection-level
+   permissions). Only the shipped agent path is guarded (see §7a); a raw MCP client can still do it.
+7. **Dashboard → source asset navigation** is not possible natively: list panels open the item
+   drawer of their own collection, so projection rows cannot route to `content/<template>/<id>`.
+
+Full accepted-limitation list: `docs/known-limitations.md`.
 
 ## 11. Not in this phase
 

@@ -10,27 +10,32 @@ navigation entry are versioned in git.
   [template system](docs/template-system.md) · [agent API](docs/agent-api.md) ·
   [implementation plan](docs/implementation-plan.md)
 
-## Status
+## Status: v1.0.0 — architecture frozen, ready for real assets
 
-Phase 0-9 complete and verified against the live instance:
+Phase 0-10 complete and verified against the live instance. The shape of the system (typed
+collections, template metadata, `asset_index` projection, native dashboard, policy-based security)
+is frozen; further work is driven by real usage, not by design.
 
-- 9 typed/reference collections + 7 junctions + 1 projection (`asset_index`)
-- 26 real relations (m2o, m2m), 9 per-template Studio presets, 1 "All Assets" preset
-- `asset_index` maintained by generated PostgreSQL triggers; rebuildable and disposable
-- 30/30 API + projection + delete-behaviour checks: `python3 scripts/verify_phase2_5.py`
-- 32/32 extensibility checks for the certificate type: `python3 scripts/verify_phase9.py`
-- Insights dashboard "Personal Digital Assets" (7 panels over `asset_index` + `subscriptions`),
-  built by `python3 scripts/build_dashboard.py`
+```
+python3 scripts/verify_all.py        # release gate: templates, lint, projection, security, guard
+```
 
-- Security boundary enforced by Directus policies (72/72 checks): `python3 scripts/verify_security.py`
-- Secret-material lint: `python3 scripts/lint_secret_schema.py`
+```
+Template schema       PASS   templates/schema.json + semantic validator
+Secret boundary       PASS   no secret-material fields
+Asset templates       PASS   every template: metadata, fields, relations, preset, perms, projection
+Projection            PASS   one row per asset, rebuild reproducible
+Security              PASS   agent/human/public boundaries
+Mutation safety       PASS   unscoped update rejected before send
+```
 
-Identities: Administrator (full), `PDAM User` (Studio + dashboard + asset CRUD, no hard delete),
-`PDAM Agent` (REST/MCP only, asset CRUD, no hard delete, no schema/policy changes), Public (none).
-See [docs/security.md](docs/security.md).
+What exists: 6 asset types (accounts, domains, vps, subscriptions, payment_methods, certificates),
+3 reference entities (providers, tags, secret_references), 7 junctions, one rebuildable projection,
+one native Insights dashboard, two non-admin policies, and a spec → metadata pipeline that adds a
+new asset type without touching application code.
 
-Not built (deliberately): custom frontend, secret-manager integration, agent CLI wrapper,
-template builder.
+Known limitations (deliberate, documented): see [docs/known-limitations.md](docs/known-limitations.md).
+Backup and recovery: [docs/backup-restore.md](docs/backup-restore.md).
 
 ## Why this shape
 

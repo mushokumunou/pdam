@@ -219,3 +219,33 @@ API consumer and the Studio form lose them (and their children). Until upstream 
 directus/directus#28379, templates express form structure with field order, hidden technical
 fields, display modes and conditions only. Re-adding groups later is a metadata-only change
 (the applier already knows how); no data migration is involved.
+
+## 11. The spec contract (Phase 10)
+
+`templates/schema.json` (JSON Schema 2020-12) is the published contract; `scripts/validate_templates.py`
+implements the same rules without third-party dependencies and adds the semantic checks JSON Schema
+cannot express:
+
+- duplicate field names, missing `name` identifier
+- relation targets that do not exist (and self-relations)
+- `archive.field` that is not a `select`, or whose `value` is not one of its choices
+- `list.columns` / `list.widths` / `list.sort` / `index.*` referencing fields that do not exist
+- `index.provider` / `index.account` pointing at something that is not an `m2o` ending in `.name`
+- per-type requirements (`select` needs choices; `m2o`/`m2m`/`tags` need `to`)
+
+`--self-test` runs 12 synthetic specs (valid one plus 11 deliberately broken ones) and fails if any
+wrong verdict appears. `jsonschema` is used automatically when installed; otherwise the built-in
+rules run and say so.
+
+## 12. Generic verifier (Phase 10)
+
+`scripts/verify_templates.py` replaces the per-phase verifier for schema work. It discovers
+`templates/*.json` (no registry) and, per template, checks collection metadata, field types against
+the spec, relations/junctions, the global preset, permissions for both non-admin policies, public
+denial, and — only when the spec declares an `index` mapping — the projection lifecycle with a real
+fixture (create → row appears → rename → status → tags → cleanup). Capabilities a spec does not
+declare are skipped, not faked: a template without `expires_on` is not asked to expire.
+
+Phase-specific scripts remain for behaviour that is not per-template (`verify_phase2_5.py` for the
+core model, `verify_security.py` for policy boundaries, `verify_phase9.py` for the certificate
+walkthrough). `scripts/verify_all.py` runs everything and prints one verdict per section.

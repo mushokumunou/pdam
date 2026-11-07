@@ -213,3 +213,17 @@ the collection — verified live during testing. Use:
 ```json
 {"action":"update","collection":"vps","keys":["<uuid>"],"data":{"region":"Osaka"}}
 ```
+
+### Mutation guard (Phase 10)
+
+Point MCP clients at the local guard instead of Directus directly:
+
+```bash
+python3 scripts/agent_guard.py --port 8787     # forwards to https://pdam.8w8.xyz/mcp
+# MCP endpoint for the agent: http://127.0.0.1:8787/mcp   (same bearer token)
+```
+
+It rejects `items update` with neither non-empty `keys` nor a non-empty `query.filter` before the
+request is sent, and forwards everything else untouched. This is a **client-side guard, not the
+security boundary** — the boundary is the Directus policy (see `docs/security.md` §7a). If a client
+cannot use the proxy, it must still scope every update itself.

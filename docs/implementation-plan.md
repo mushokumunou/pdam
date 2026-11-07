@@ -185,3 +185,17 @@ dashboard absorbed the new type with zero changes.
 - Backups: `pg_dump` (content) + `directus/` (shape). Both, every time.
 - Directus upgrades: bump image tag → boot → `d6s sync pull` (new baseline) → commit.
 - Every new template: check it does not add a secret-bearing field name (Phase 7 lint).
+
+## Phase 10 — Tooling hardening + v1 release gate **[done]**
+
+| item | implementation | verification |
+|---|---|---|
+| spec contract | `templates/schema.json` + `scripts/validate_templates.py` (structural + semantic, `--self-test`) | 12/12 synthetic verdicts, 9 real specs valid |
+| generic verifier | `scripts/verify_templates.py` (discovery-based, capability-driven) | 107/107 across all 9 templates |
+| mutation guard | `scripts/agent_guard.py` (function + thin `/mcp` proxy) | 17/17, including "rejected call changed no rows" |
+| unified gate | `scripts/verify_all.py` | prints PASS/FAIL per section |
+| backup/restore | `docs/backup-restore.md`, real restore into `pdam_restore_test` | all table counts equal, projection rebuild 0→10 |
+| release | README status, `v1.0.0` tag | repo clean, `d6s --mode add` parity |
+
+**v1 definition:** architecture frozen, ready for real data. New capability work only from real
+usage friction, not from design speculation.

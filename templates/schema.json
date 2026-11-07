@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mushokumunou/pdam/templates/schema.json",
+  "title": "PDAM asset template spec",
+  "description": "Contract for templates/*.json. Describes what the current system actually consumes: collection metadata, typed fields, relations, list preset and read-model projection. Semantic rules that JSON Schema cannot express (duplicate fields, dangling relation targets, preset columns referencing missing fields, missing identifier) are enforced by scripts/validate_templates.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "name", "group", "fields"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{1,62}$",
+      "description": "collection name; immutable once pushed (table, API path, sync file name)"
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "icon": { "type": "string", "minLength": 1, "description": "Material icon name" },
+    "note": { "type": "string" },
+    "sort": { "type": "integer", "minimum": 0 },
+    "group": { "enum": ["assets", "reference", "derived"] },
+    "display_template": { "type": "string", "pattern": "^\\{\\{ ?[a-z0-9_]+ ?\\}\\}$" },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "value"],
+      "properties": {
+        "field": { "type": "string" },
+        "value": { "type": "string" },
+        "unarchive": { "type": "string" }
+      }
+    },
+    "list": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sort": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "columns": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "widths": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 40 }
+        }
+      }
+    },
+    "index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "provider": { "type": ["string", "null"], "pattern": "^[a-z0-9_]+\\.name$" },
+        "account": { "type": ["string", "null"], "pattern": "^[a-z0-9_]+\\.name$" },
+        "expires": { "type": ["string", "null"] },
+        "renewal": { "type": ["string", "null"] },
+        "extra": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "type"],
+        "properties": {
+          "field": { "type": "string", "pattern": "^[a-z][a-z0-9_]{1,62}$" },
+          "type": {
+            "enum": ["string", "text", "integer", "decimal", "boolean", "date", "timestamp",
+                     "select", "m2o", "m2m", "tags"]
+          },
+          "required": { "type": "boolean" },
+          "unique": { "type": "boolean" },
+          "length": { "type": "integer", "minimum": 1, "maximum": 4000 },
+          "precision": { "type": "integer", "minimum": 1, "maximum": 38 },
+          "scale": { "type": "integer", "minimum": 0, "maximum": 18 },
+          "default": { "type": ["string", "number", "boolean"] },
+          "choices": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "to": { "type": "string", "pattern": "^[a-z][a-z0-9_]{1,62}$" },
+          "on_delete": { "enum": ["SET NULL", "RESTRICT", "CASCADE", "NO ACTION"] },
+          "display": { "type": "string" },
+          "format": { "enum": ["email", "url"] },
+          "note": { "type": "string" },
+          "placeholder": { "type": "string" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "enum": ["select"] } }, "required": ["type"] },
+            "then": { "required": ["choices"] }
+          },
+          {
+            "if": { "properties": { "type": { "enum": ["m2o", "m2m", "tags"] } }, "required": ["type"] },
+            "then": { "required": ["to"] }
+          },
+          {
+            "if": { "properties": { "type": { "enum": ["decimal"] } }, "required": ["type"] },
+            "then": {
+              "properties": {
+                "precision": { "type": "integer", "minimum": 1, "maximum": 38 },
+                "scale": { "type": "integer", "minimum": 0, "maximum": 18 }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
