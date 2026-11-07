@@ -306,3 +306,9 @@ Nothing cascades into asset deletion: there is no `ON DELETE CASCADE` on any ass
   Safe to run repeatedly (verified: 10 -> 10 rows, 0 duplicates), and after
   `TRUNCATE asset_index` it restores the full projection (verified).
 - Disposable: dropping every row loses nothing but the All list until the next rebuild.
+
+## 19. Dashboard adds no tables
+
+Phase 6 introduced no collection: panels query `asset_index` (cross-type) and `subscriptions`
+(billing detail) directly. Any future statistic must stay derived; do not add
+`asset_statistics`-style tables.

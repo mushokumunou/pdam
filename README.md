@@ -12,12 +12,14 @@ navigation entry are versioned in git.
 
 ## Status
 
-Phase 0-5 complete and verified against the live instance:
+Phase 0-6 complete and verified against the live instance:
 
 - 8 typed/reference collections + 5 tag junctions + 1 projection (`asset_index`)
 - 23 real relations (m2o, m2m), 8 per-template Studio presets, 1 "All Assets" preset
 - `asset_index` maintained by generated PostgreSQL triggers; rebuildable and disposable
 - 30/30 API + projection + delete-behaviour checks: `python3 scripts/verify_phase2_5.py`
+- Insights dashboard "Personal Digital Assets" (7 panels over `asset_index` + `subscriptions`),
+  built by `python3 scripts/build_dashboard.py`
 
 Not built (deliberately): custom frontend, dashboard panels, agent RBAC, template builder.
 

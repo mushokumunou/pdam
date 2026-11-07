@@ -168,3 +168,17 @@ Error semantics observed:
 - Archiving is `PATCH {status:"archived"}`; the row remains in `asset_index` with that status, which
   is intentional: archived assets are still assets, they are not deleted.
 - `DELETE` on an unknown id returns 204 and changes nothing.
+
+## 8. Dashboards (configuration, not data)
+
+The Insights dashboard is stored in `directus_dashboards` / `directus_panels` and synced by `d6s`,
+so an agent can read it without scraping the UI:
+
+```bash
+GET /dashboards?fields=id,name,panels
+GET /panels?fields=name,type,position_x,position_y,width,height,options
+```
+
+Panel `options.collection` / `options.filter` describe exactly which query feeds each panel — same
+filters an agent can replay against `/items/...`. The dashboard creates no tables and owns no data;
+`asset_index` remains the only cross-type read path.

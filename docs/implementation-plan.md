@@ -112,10 +112,18 @@ secret reference, junction cascade for tags) — see `data-model.md` §17.
 
 ---
 
-## Phase 6 — Dashboard polish
+## Phase 6 — Dashboard **[done]**
 
-Filters on the dashboard (status, provider), "expiring soon" list panel, click-through to the
-filtered collection page. No aggregation tables; all panels are queries.
+Native Insights dashboard `Personal Digital Assets` (`scripts/build_dashboard.py`, idempotent):
+Total Assets (metric), Assets by Type (metric-list grouped by `template`), Expiring Soon 30 days
+(list over `asset_index.expires_on` with `$NOW` relative filters), Upcoming Renewals (list over
+`subscriptions.renewal_on`, so price/currency/billing_cycle stay in their own table), Status
+Distribution (pie-chart over `asset_index.status`), Not Active (list), Recently Updated (list).
+
+Verified in-browser with live data; dashboard and all 10 panels are captured by `d6s sync` as
+configuration. Navigation result: native list rows open an inline item drawer for the panel's own
+collection (`subscriptions` verified); cross-type projection rows are intentionally not clickable,
+so dashboard → source asset needs a future navigation extension.
 
 ---
 

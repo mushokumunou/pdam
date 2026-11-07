@@ -218,6 +218,35 @@ collections, never here.
 **Rejected alternative.** Read-only SQL view — impossible. Custom endpoint merging N collections —
 works for agents, but leaves the Studio without an All list and pushes aggregation into code.
 
+## 4.1 Dashboard (Phase 6, implemented)
+
+One native Insights dashboard, `Personal Digital Assets`, built only from built-in panel types and
+querying only `asset_index` plus `subscriptions`. No new tables, no statistics cache, no custom panel
+extension.
+
+| panel | type | source | what it answers |
+|---|---|---|---|
+| Total Assets | metric (count) | `asset_index` | how many assets exist |
+| Assets by Type | metric-list (group by `template`) | `asset_index` | per-type counts in one panel |
+| Expiring Soon (30 days) | list | `asset_index`, `expires_on BETWEEN $NOW AND $NOW(+30 days)` | what needs renewal attention |
+| Upcoming Renewals | list | `subscriptions.renewal_on` | next charges, with price/currency |
+| Status Distribution | pie-chart (group by `status`) | `asset_index` | health split; a NULL status would be its own slice, never folded into active |
+| Not Active | list | `asset_index`, `status != active` | exceptions |
+| Recently Updated | list | `asset_index.updated_at` | last writes across all types |
+
+Verified in the browser: Total Assets = 10, per-type 3/3/2/1/1 (sums to 10), Expiring Soon shows the
+one domain inside 30 days, Upcoming Renewals shows the subscription with price, Status pie shows a
+single `active` slice (all ten rows are active), Not Active shows "No Data", Recently Updated lists
+ten rows.
+
+**Dashboard → asset navigation (outcome B).** Native list panels have `linkToItem`, which opens the
+item drawer for *the panel's own collection* (`@click="startEditing(row)"` in
+`app/src/panels/list/panel-list.vue`); there is no route to the typed asset page and no per-row link.
+So: `Upcoming Renewals` (collection `subscriptions`) opens the subscription editor inline — verified;
+cross-type lists keep `linkToItem: false` on purpose, because the row belongs to `asset_index` and the
+projection must never be edited. Going from a projection row to its source asset needs a future
+lightweight navigation extension (`template` + `asset_id` → `/admin/content/<template>/<id>`).
+
 ## 5. Scale validation (200 domains / 300 accounts / 100 subscriptions / 100 servers / 50 providers)
 
 | Operation | Mechanism | Verdict |
