@@ -31,7 +31,8 @@ assets (group / folder)
 ├── domains             → providers (registrar, dns_provider), accounts, vps (primary_server), tags
 ├── accounts            → providers, secret_references, tags
 ├── subscriptions       → providers, accounts, payment_methods, tags
-└── payment_methods     → providers, secret_references, tags
+├── payment_methods     → providers, secret_references, tags
+└── certificates        → providers, domains (M2M), tags
 
 reference (group)
 ├── providers
@@ -171,6 +172,27 @@ or full card number. Review checklist item for every future template.
 | tags | M2M → tags | junction `payment_methods_tags` |
 | notes | text | |
 
+
+## 10a. `certificates` (asset, added in Phase 9 as the extensibility proof)
+
+| field | type | notes |
+|---|---|---|
+| id | uuid | PK |
+| name | varchar(190) | required, human identifier (`example.com TLS 2027`) |
+| provider | uuid → providers.id | `SET NULL`; who we manage the certificate through |
+| domains | M2M → domains via `certificates_domains` | SAN support: many names per cert, many certs per domain |
+| issuer | varchar(120) | issuing CA as text (`Let's Encrypt R11`) — deliberately not a `providers` row |
+| serial_number | varchar(128) | |
+| issued_at | date | |
+| expires_on | date | drives Expiring Soon |
+| auto_renew | boolean | default false |
+| status | varchar(32) | `active/inactive/expired/archived` |
+| notes | text | |
+| tags | M2M → tags via `certificates_tags` | |
+
+No `private_key` (or any secret material) column: that belongs to the secret manager, and
+`scripts/lint_secret_schema.py` fails if such a field appears.
+
 ## 11. `asset_index` (derived read model — ADR-006)
 
 | field | type | source |
@@ -216,6 +238,8 @@ Mapping is declared once per template:
 | subscriptions.account | accounts | M2O | SET NULL |
 | subscriptions.payment_method | payment_methods | M2O | SET NULL |
 | payment_methods.provider | providers | M2O | SET NULL |
+| certificates.provider | providers | M2O | SET NULL |
+| certificates.domains | domains | M2M via `certificates_domains` | junction cascade |
 | payment_methods.secret_reference | secret_references | M2O | SET NULL |
 | `<asset>.tags` | tags | M2M via `<asset>_tags` | junction cascade |
 
@@ -241,6 +265,7 @@ asset_index(template), asset_index(status), asset_index(expires_on), asset_index
 | template | status | expires_on | renewal_on | auto_renew | archived_at |
 |---|---|---|---|---|---|
 | vps | ✔ | ✔ (optional) | – | – | via status |
+| certificates | ✔ | ✔ | – | ✔ | via status |
 | domains | ✔ | ✔ | – | ✔ | via status |
 | subscriptions | ✔ | – | ✔ | ✔ | via status |
 | accounts | ✔ | – | – | – | via status |

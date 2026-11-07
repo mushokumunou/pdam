@@ -40,6 +40,9 @@ lifecycle state, `*_on` dates, `*_at` timestamps. These do not change without a 
 # all VPS
 GET /items/vps?fields=id,name,status,region,ipv4,provider.name&sort=name
 
+# certificates expiring soon, with the domains they cover
+GET /items/certificates?fields=name,issuer,expires_on,domains.domains_id.name&sort=expires_on
+
 # domains expiring within 30 days
 GET /items/domains?filter[status][_eq]=active&filter[expires_on][_lte]=$DATE_30&sort=expires_on
 

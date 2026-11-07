@@ -36,10 +36,19 @@ AGENT_ROLE = "PDAM Agent"
 USER_EMAIL = os.environ.get("PDAM_USER_EMAIL", "pdam@8w8.xyz")
 AGENT_EMAIL = os.environ.get("PDAM_AGENT_EMAIL", "agent@8w8.xyz")
 
-ASSETS = ["accounts", "payment_methods", "vps", "domains", "subscriptions"]
-REFS = ["providers", "tags", "secret_references"]
-JUNCTIONS = ["vps_tags", "domains_tags", "accounts_tags", "subscriptions_tags",
-             "payment_methods_tags"]
+def discover_collections():
+    """Asset/ref collections and their junctions come from the template specs, so adding a
+    template does not require editing this file."""
+    import glob
+    specs = [json.load(open(p)) for p in glob.glob("templates/*.json")]
+    assets = sorted(s["slug"] for s in specs if s.get("group") == "assets")
+    refs = sorted(s["slug"] for s in specs if s.get("group") == "reference")
+    junctions = sorted({f"{s['slug']}_{f['to']}" for s in specs for f in s.get("fields", [])
+                        if f.get("type") in ("tags", "m2m")})
+    return assets, refs, junctions
+
+
+ASSETS, REFS, JUNCTIONS = discover_collections()
 PROJECTION = ["asset_index"]
 # schema discovery: read-only, no write action is ever granted on these
 SCHEMA_READ = ["directus_collections", "directus_fields", "directus_relations"]

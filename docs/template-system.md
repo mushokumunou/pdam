@@ -126,42 +126,61 @@ with field types `string, text, integer, decimal, boolean, date, timestamp, sele
 - **Filters**: preset `filters` gives one-click views ("Expiring in 30 days"); `select-dropdown`
   interfaces give the type filters (Provider / Status / Region).
 
-## 6. Lifecycle of a new template (worked example: Certificate)
+## 6. Adding a new Asset Type — measured on `certificates` (Phase 9)
 
-Brief Scenario 3 requires this to be cheap. It is:
+This section is the **actual procedure executed** to add the sixth asset type, not a plan.
+Certificate was chosen because it is a type that did not exist when the system was designed.
 
-1. `templates/certificate.json`:
+### 6.1 Steps (in order, with what each one produced)
 
-```json
-{ "slug": "certificate", "name": "Certificate", "icon": "verified_user",
-  "group": "assets", "sort": 60, "list": { "columns": ["name","issuer","expires_on","status"] },
-  "index": { "name": "name", "expires": "expires_on" },
-  "fields": [
-    { "field": "name", "type": "string", "required": true },
-    { "field": "domains", "type": "uuid", "interface": "select-dropdown-m2o",
-      "relation": { "collection": "domains", "on_delete": "SET NULL" } },
-    { "field": "issuer", "type": "string" },
-    { "field": "issued_on", "type": "date" },
-    { "field": "expires_on", "type": "date" },
-    { "field": "status", "type": "string", "interface": "select-dropdown",
-      "choices": ["valid","expiring","expired","archived"], "default": "valid" }
-  ] }
-```
+| # | step | command | result |
+|---|---|---|---|
+| 1 | declare the type | new `templates/certificate.json` (11 fields, 2 M2M, 1 M2O, preset, index mapping) | spec only, no code |
+| 2 | generate Directus metadata | `python3 scripts/apply_templates.py` | collection `certificates` (14 fields incl. system), junction `certificates_domains`, junction `certificates_tags`, 3 relations, alias fields `domains`/`tags`, global preset |
+| 3 | regenerate projection DDL | `python3 scripts/build_index_sql.py` | `schema/asset_index.sql` now holds 6 templates: `pdam_idx_certificates()` + 2 triggers (table + tags junction) |
+| 4 | apply projection DDL | `psql -f schema/asset_index.sql` on the host | functions/triggers created idempotently, `pdam_index_rebuild()` covers the new table |
+| 5 | grant permissions | `python3 scripts/apply_security.py` | 9 new permission rows (certificates r/c/u, both junctions r/c/d) for both policies — collections discovered from the specs |
+| 6 | verify | `python3 scripts/verify_phase9.py` | 32/32 checks |
+| 7 | capture configuration | `d6s sync pull` | 3 new schema files + updated presets/permissions in git |
 
-2. `python3 scripts/generate.py` → new schema file, preset merged, index mapping appended.
-3. `d6s sync diff --to pdam` → `d6s sync push --to pdam` (single collection, additive).
-4. `psql -f schema/asset_index.sql` (idempotent) → trigger + backfill.
+Wall clock for steps 1-7 in one pass: minutes, not hours; nothing restarted, no downtime
+(collection creation is online in Directus).
 
-Done, with **zero** changes to frontend code, form code, API code or agent code:
+### 6.2 Cardinality decisions made in the spec
 
-- sidebar shows `Certificate`
-- its list shows Name / Issuer / Expires / Status
-- Add Certificate renders its own five fields
-- `GET /items/certificate`, `filter[expires_on][_lt]=…`, MCP tools, and the All list all work
-- dashboard counts include it
+- `certificates ↔ domains` is **M2M** (`certificates_domains`): a certificate can carry several
+  names (SAN) and a domain can hold several certificates at once (issuer overlap during rotation).
+  An M2O would have been simpler to build and wrong to live with.
+- `certificates.provider` is **M2O → providers** (who we manage it through), while `issuer` stays a
+  plain string. Issuing CAs are not account-holding vendors in this domain: they have no lifecycle,
+  no credentials, no assets pointing back at them. Promoting `issuer` to `providers` would have
+  added a relation without adding meaning.
+- `status` reuses the generic lifecycle (`active/inactive/expired/archived`); no
+  `certificate_status` was introduced.
+- No `private_key` field: certificate private material belongs to the secret manager. The lint
+  enforces this (and would fail the build if someone added it).
 
-If any of those required code changes, the abstraction failed — that is the acceptance test for
-Scenario 4 and it is measurable, not rhetorical.
+### 6.3 What was mechanical (and what that implies)
+
+| repeated work | count for this type | now generated? |
+|---|---|---|
+| permission rows | 9 (3 collections × 3 actions, per policy) | yes — `apply_security.py` discovers collections from `templates/*.json` |
+| projection SQL | 1 upsert function + 2 triggers + rebuild entry | yes — `build_index_sql.py` |
+| preset record | 1 | yes — `apply_templates.py` |
+| collection/fields/relations | 1 collection, 11 fields, 3 relations, 2 junctions | yes — `apply_templates.py` |
+| verification assertions | ~32 checks | hand-written once per type (`verify_phase9.py`); could be parameterised later |
+| dashboard panels | 0 | n/a — panels read `asset_index` |
+
+Two bits of *generic* tooling had to grow, both discovered by this exercise, neither
+certificate-specific:
+
+1. `apply_templates.py` only understood `type: "tags"` for M2M. Certificate needed a real M2M to
+   `domains`, so the handler became generic (`tags`/`m2m`, junction `<slug>_<related>`).
+2. `apply_security.py` and `verify_phase2_5.py` carried hardcoded collection lists. They now derive
+   the expected set from the template specs, so adding a type no longer means editing test/config
+   files.
+
+That is the intended outcome: the first new type exposes generic gaps, not per-type code.
 
 ## 7. Relationship between "product template" and "Directus schema"
 

@@ -179,7 +179,7 @@ def ensure_collection(spec: dict):
         api("PATCH", f"/collections/{slug}", {"meta": meta_patch})
     else:
         fields = system_fields()
-        user_fields = [f for f in spec["fields"] if f["type"] not in ("tags",)]
+        user_fields = [f for f in spec["fields"] if f["type"] not in ("tags", "m2m")]
         for i, f in enumerate(user_fields, start=10):
             fields.append(field_payload(slug, f, i))
         code, body = api("POST", "/collections", {
@@ -191,7 +191,7 @@ def ensure_collection(spec: dict):
 
     # fields added later (idempotent)
     for i, f in enumerate(spec["fields"], start=10):
-        if f["type"] == "tags":
+        if f["type"] in ("tags", "m2m"):
             continue
         if not exists(f"/fields/{slug}/{f['field']}"):
             code, body = api("POST", f"/fields/{slug}", field_payload(slug, f, i))
@@ -205,8 +205,8 @@ def ensure_collection(spec: dict):
         if f["type"] == "m2o":
             ensure_relation(slug, f)
     for f in spec["fields"]:
-        if f["type"] == "tags":
-            ensure_tags(slug, f)
+        if f["type"] in ("tags", "m2m"):
+            ensure_m2m(slug, f)
 
 
 def sync_field_meta(slug: str, f: dict, sort: int):
@@ -248,7 +248,7 @@ def ensure_relation(slug: str, f: dict, rels: list | None = None):
     log(f"    + relation {slug}.{f['field']} -> {f['to']} ({f.get('on_delete','SET NULL')})")
 
 
-def ensure_tags(slug: str, f: dict):
+def ensure_m2m(slug: str, f: dict):
     related = f["to"]
     junction = f"{slug}_{related}"
     fk_many, fk_one = f"{slug}_id", f"{related}_id"

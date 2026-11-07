@@ -148,6 +148,13 @@ re-implement CRUD.
 
 ### ADR-004 — Extension path: adding an Asset Type
 
+**Validated (Phase 9).** Adding `certificates` — a type that did not exist during design — took one
+spec file plus four generated artefacts. Application runtime changes: **0**. No router, CRUD handler,
+REST endpoint, MCP implementation, dashboard code or asset registry was touched; no `if certificate`
+branch exists anywhere. Two *generic* tooling gaps surfaced and were fixed generically
+(M2M handling in the template applier, spec-driven discovery in the security/verification scripts).
+Full measurement: `docs/template-system.md` §6.
+
 **Decision.** Adding a type touches only data/config, never frontend code:
 
 1. add `templates/<slug>.json` (fields, list columns, filters, nav metadata),

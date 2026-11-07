@@ -314,6 +314,64 @@ DROP TRIGGER IF EXISTS trg_idx_subscriptions_tags ON subscriptions_tags;
 CREATE TRIGGER trg_idx_subscriptions_tags AFTER INSERT OR DELETE OR UPDATE ON subscriptions_tags
   FOR EACH ROW EXECUTE FUNCTION pdam_idx_jtrg_subscriptions();
 
+-- certificates
+CREATE OR REPLACE FUNCTION pdam_idx_certificates(p_id uuid) RETURNS void LANGUAGE plpgsql AS $fn$
+DECLARE
+  r certificates%ROWTYPE;
+  v_tags text;
+  v_provider text;
+  v_account text;
+  v_search text;
+BEGIN
+  SELECT * INTO r FROM certificates WHERE id = p_id;
+  IF NOT FOUND THEN
+    DELETE FROM asset_index WHERE asset_id = p_id;
+    RETURN;
+  END IF;
+
+  SELECT string_agg(g.name, ', ' ORDER BY g.name) INTO v_tags
+    FROM certificates_tags j JOIN tags g ON g.id = j.tags_id WHERE j.certificates_id = p_id;
+
+  SELECT p.name INTO v_provider FROM providers p WHERE p.id = r.provider;
+
+  v_account := NULL;
+
+  v_search := lower(concat_ws(' ', r.name, v_provider, v_account, v_tags, r.issuer, r.serial_number, r.auto_renew));
+
+  INSERT INTO asset_index
+    (asset_id, template, name, status, provider_name, account_name,
+     expires_on, renewal_on, tags, search_text, updated_at)
+  VALUES (r.id, 'certificates', r.name, r.status, v_provider, v_account,
+          r.expires_on, NULL::date, v_tags, v_search, now())
+  ON CONFLICT (asset_id) DO UPDATE SET
+    template = EXCLUDED.template, name = EXCLUDED.name, status = EXCLUDED.status,
+    provider_name = EXCLUDED.provider_name, account_name = EXCLUDED.account_name,
+    expires_on = EXCLUDED.expires_on, renewal_on = EXCLUDED.renewal_on,
+    tags = EXCLUDED.tags, search_text = EXCLUDED.search_text, updated_at = now();
+END $fn$;
+
+CREATE OR REPLACE FUNCTION pdam_idx_trg_certificates() RETURNS trigger LANGUAGE plpgsql AS $t$
+BEGIN
+  IF TG_OP = 'DELETE' THEN
+    DELETE FROM asset_index WHERE asset_id = OLD.id;
+    RETURN OLD;
+  END IF;
+  PERFORM pdam_idx_certificates(NEW.id);
+  RETURN NEW;
+END $t$;
+DROP TRIGGER IF EXISTS trg_idx_certificates ON certificates;
+CREATE TRIGGER trg_idx_certificates AFTER INSERT OR UPDATE OR DELETE ON certificates
+  FOR EACH ROW EXECUTE FUNCTION pdam_idx_trg_certificates();
+
+CREATE OR REPLACE FUNCTION pdam_idx_jtrg_certificates() RETURNS trigger LANGUAGE plpgsql AS $j$
+BEGIN
+  PERFORM pdam_idx_certificates(COALESCE(NEW.certificates_id, OLD.certificates_id));
+  RETURN NULL;
+END $j$;
+DROP TRIGGER IF EXISTS trg_idx_certificates_tags ON certificates_tags;
+CREATE TRIGGER trg_idx_certificates_tags AFTER INSERT OR DELETE OR UPDATE ON certificates_tags
+  FOR EACH ROW EXECUTE FUNCTION pdam_idx_jtrg_certificates();
+
 CREATE OR REPLACE FUNCTION pdam_index_rebuild() RETURNS void LANGUAGE plpgsql AS $rb$
 DECLARE r record;
 BEGIN
@@ -323,5 +381,6 @@ BEGIN
   FOR r IN SELECT id FROM vps LOOP PERFORM pdam_idx_vps(r.id); END LOOP;
   FOR r IN SELECT id FROM domains LOOP PERFORM pdam_idx_domains(r.id); END LOOP;
   FOR r IN SELECT id FROM subscriptions LOOP PERFORM pdam_idx_subscriptions(r.id); END LOOP;
+  FOR r IN SELECT id FROM certificates LOOP PERFORM pdam_idx_certificates(r.id); END LOOP;
 END $rb$;
 

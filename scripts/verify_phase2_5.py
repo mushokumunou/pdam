@@ -59,9 +59,13 @@ def main():
         g = (c.get("meta") or {}).get("group")
         groups.setdefault(g, []).append(c["collection"])
     asset_types = sorted(groups.get("assets", []))
-    check("discovery: asset templates discoverable via collection group",
-          asset_types == ["accounts", "domains", "payment_methods", "subscriptions", "vps"],
-          str(asset_types))
+    # derive the expected set from the template specs instead of hardcoding a registry
+    import glob as _glob
+    spec_types = sorted(json.load(open(p_))["slug"]
+                        for p_ in _glob.glob("templates/*.json")
+                        if json.load(open(p_)).get("group") == "assets")
+    check("discovery: asset templates match template specs",
+          asset_types == spec_types, f"live={asset_types} specs={spec_types}")
 
     for coll, must in (("vps", ["provider", "account", "ipv4", "region", "os", "expires_on", "tags"]),
                        ("domains", ["registrar", "dns_provider", "account", "primary_server",

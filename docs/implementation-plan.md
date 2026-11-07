@@ -155,15 +155,26 @@ through MCP only.
 
 ---
 
-## Phase 9 — Extensibility proof (Certificate)
+## Phase 9 — Extensibility proof (Certificate) **[done]**
 
-Add `templates/certificate.json`, regenerate, push, run index SQL. Measure the diff:
+Executed end to end: `templates/certificate.json` → `apply_templates.py` → `build_index_sql.py` →
+`psql -f schema/asset_index.sql` → `apply_security.py` → `d6s sync pull`.
 
-- files changed: 1 spec + 1 generated schema + presets JSON + index SQL (all generated)
-- application code changed: **0**
-- UI: new tab, new list, new form appear with no deploy
+Measured result:
 
-If that measurement fails, revisit ADR-002/003 before writing more templates.
+| category | changed by |
+|---|---|
+| template declaration | 1 new spec (`templates/certificate.json`) |
+| generated Directus metadata | 1 collection + 2 junctions + 3 relations + 1 preset (generated) |
+| projection SQL | regenerated file, +1 function / +2 triggers (generated) |
+| permission config | 9 rows per policy, generated from specs |
+| tests | new `scripts/verify_phase9.py` (32 checks); `verify_phase2_5.py` de-hardcoded |
+| docs | 6 files |
+| **generic application code** | **0** — no router, handler, endpoint, MCP tool, dashboard or registry edit |
+
+Verification: `verify_phase9.py` 32/32, `verify_security.py` 72/72 (no regression),
+`verify_phase2_5.py` 30/30 after making its type list spec-driven, browser checks as PDAM User,
+dashboard absorbed the new type with zero changes.
 
 ---
 

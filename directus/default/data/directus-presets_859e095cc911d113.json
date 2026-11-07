@@ -111,6 +111,52 @@
     },
     {
       "bookmark": null,
+      "collection": "certificates",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 27,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "issuer",
+            "expires_on",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "expires_on": 140,
+            "issuer": 180,
+            "name": 260,
+            "provider": 150,
+            "status": 110
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "issuer",
+            "expires_on",
+            "status"
+          ],
+          "sort": [
+            "expires_on"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
       "collection": "providers",
       "color": null,
       "filter": null,

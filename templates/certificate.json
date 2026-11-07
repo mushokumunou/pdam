@@ -1,0 +1,42 @@
+{
+  "slug": "certificates",
+  "name": "Certificates",
+  "icon": "verified_user",
+  "note": "TLS / service certificates",
+  "sort": 60,
+  "group": "assets",
+  "display_template": "{{name}}",
+  "archive": { "field": "status", "value": "archived", "unarchive": "active" },
+  "list": {
+    "sort": ["expires_on"],
+    "columns": ["name", "provider", "issuer", "expires_on", "status"],
+    "widths": { "name": 260, "provider": 150, "issuer": 180, "expires_on": 140, "status": 110 }
+  },
+  "index": {
+    "name": "name",
+    "provider": "provider.name",
+    "account": null,
+    "expires": "expires_on",
+    "renewal": null,
+    "extra": ["issuer", "serial_number", "auto_renew"]
+  },
+  "fields": [
+    { "field": "name", "type": "string", "length": 190, "required": true,
+      "note": "human identifier, e.g. \"example.com TLS 2027\"" },
+    { "field": "provider", "type": "m2o", "to": "providers",
+      "on_delete": "SET NULL", "display": "provider.name",
+      "note": "who we manage the certificate through (account vendor)" },
+    { "field": "domains", "type": "m2m", "to": "domains",
+      "note": "names covered (SAN support), many-to-many by design" },
+    { "field": "issuer", "type": "string", "length": 120,
+      "note": "issuing CA as text, e.g. Let's Encrypt R11" },
+    { "field": "serial_number", "type": "string", "length": 128 },
+    { "field": "issued_at", "type": "date" },
+    { "field": "expires_on", "type": "date" },
+    { "field": "auto_renew", "type": "boolean", "default": false },
+    { "field": "status", "type": "select", "default": "active",
+      "choices": ["active", "inactive", "expired", "archived"] },
+    { "field": "notes", "type": "text" },
+    { "field": "tags", "type": "tags", "to": "tags" }
+  ]
+}
