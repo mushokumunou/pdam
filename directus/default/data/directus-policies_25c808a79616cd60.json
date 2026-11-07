@@ -1,0 +1,46 @@
+{
+  "collection": "directus_policies",
+  "primaryKey": "id",
+  "records": [
+    {
+      "admin_access": true,
+      "app_access": true,
+      "description": "$t:admin_description",
+      "enforce_tfa": false,
+      "icon": "verified",
+      "id": "3591ba50-bff5-4f66-9b21-de5e41b50712",
+      "ip_access": null,
+      "name": "Administrator"
+    },
+    {
+      "admin_access": false,
+      "app_access": false,
+      "description": "Agents: REST/MCP only, asset CRUD, no hard delete, no schema or policy changes",
+      "enforce_tfa": false,
+      "icon": "shield",
+      "id": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "ip_access": null,
+      "name": "PDAM Agent"
+    },
+    {
+      "admin_access": false,
+      "app_access": false,
+      "description": "$t:public_description",
+      "enforce_tfa": false,
+      "icon": "public",
+      "id": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+      "ip_access": null,
+      "name": "$t:public_label"
+    },
+    {
+      "admin_access": false,
+      "app_access": true,
+      "description": "Humans: Studio + dashboard + asset CRUD, no schema/policy changes, no hard delete",
+      "enforce_tfa": false,
+      "icon": "shield",
+      "id": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "ip_access": null,
+      "name": "PDAM User"
+    }
+  ]
+}

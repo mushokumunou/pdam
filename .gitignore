@@ -2,6 +2,6 @@
 .agent-token
 .pdam-user-password
 .env
-data/
+/data/
 node_modules/
 *.log

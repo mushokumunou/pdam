@@ -1,0 +1,281 @@
+{
+  "collection": "directus_panels",
+  "primaryKey": "id",
+  "records": [
+    {
+      "color": "#3399FF",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 10,
+      "icon": "history",
+      "id": "225e4971-9ac0-4fa8-a426-2bdd89740a03",
+      "name": "Recently Updated",
+      "note": "Last writes across every asset type",
+      "options": {
+        "collection": "asset_index",
+        "displayTemplate": "{{name}} · {{template}} · {{provider_name}}",
+        "filter": {},
+        "limit": 10,
+        "linkToItem": false,
+        "sortDirection": "desc",
+        "sortField": "updated_at"
+      },
+      "position_x": 0,
+      "position_y": 31,
+      "show_header": true,
+      "type": "list",
+      "width": 12
+    },
+    {
+      "color": "#2ECDA7",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 10,
+      "icon": "donut_large",
+      "id": "30a1d42e-c5ab-4cbf-9c0f-06e47714f5ec",
+      "name": "Status Distribution",
+      "note": "asset_index.status — NULL would appear as its own slice",
+      "options": {
+        "collection": "asset_index",
+        "column": "status",
+        "decimals": 0,
+        "donut": true,
+        "filter": {},
+        "function": "count",
+        "legend": true,
+        "showLabels": true
+      },
+      "position_x": 0,
+      "position_y": 20,
+      "show_header": true,
+      "type": "pie-chart",
+      "width": 4
+    },
+    {
+      "color": "#E35169",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 10,
+      "icon": "event_busy",
+      "id": "51c79c5a-2f87-4234-80aa-230901afd017",
+      "name": "Expiring Soon (30 days)",
+      "note": "Domains, VPS and cards whose expires_on falls in the next 30 days",
+      "options": {
+        "collection": "asset_index",
+        "displayTemplate": "{{name}} · {{template}} · {{expires_on}}",
+        "filter": {
+          "_and": [
+            {
+              "expires_on": {
+                "_nnull": true
+              }
+            },
+            {
+              "expires_on": {
+                "_lte": "$NOW(+30 days)"
+              }
+            },
+            {
+              "expires_on": {
+                "_gte": "$NOW"
+              }
+            },
+            {
+              "status": {
+                "_nin": [
+                  "archived",
+                  "expired"
+                ]
+              }
+            }
+          ]
+        },
+        "limit": 8,
+        "linkToItem": false,
+        "sortDirection": "asc",
+        "sortField": "expires_on"
+      },
+      "position_x": 0,
+      "position_y": 9,
+      "show_header": true,
+      "type": "list",
+      "width": 6
+    },
+    {
+      "color": "#6644FF",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 1,
+      "icon": "label",
+      "id": "6c4ec1c0-a922-4743-9cdd-c71ee90ab42d",
+      "name": "Recent activity",
+      "note": null,
+      "options": {
+        "color": "#6644FF",
+        "fontSize": "16",
+        "fontWeight": "600",
+        "text": "Recent activity",
+        "textAlign": "left"
+      },
+      "position_x": 0,
+      "position_y": 30,
+      "show_header": false,
+      "type": "label",
+      "width": 12
+    },
+    {
+      "color": "#6644FF",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 1,
+      "icon": "label",
+      "id": "91acbb49-fc5a-454a-8cea-4b2789c516c3",
+      "name": "Needs attention",
+      "note": null,
+      "options": {
+        "color": "#6644FF",
+        "fontSize": "16",
+        "fontWeight": "600",
+        "text": "Needs attention",
+        "textAlign": "left"
+      },
+      "position_x": 0,
+      "position_y": 8,
+      "show_header": false,
+      "type": "label",
+      "width": 12
+    },
+    {
+      "color": "#FFA439",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 10,
+      "icon": "autorenew",
+      "id": "9342f786-3fd5-44ca-a2c2-e20ce06c627d",
+      "name": "Upcoming Renewals",
+      "note": "Next charge per active subscription (native join, no copy)",
+      "options": {
+        "collection": "subscriptions",
+        "displayTemplate": "{{name}} · {{price}} {{currency}} · {{renewal_on}}",
+        "filter": {
+          "_and": [
+            {
+              "renewal_on": {
+                "_nnull": true
+              }
+            },
+            {
+              "status": {
+                "_nin": [
+                  "archived",
+                  "canceled"
+                ]
+              }
+            }
+          ]
+        },
+        "limit": 8,
+        "linkToItem": true,
+        "sortDirection": "asc",
+        "sortField": "renewal_on"
+      },
+      "position_x": 6,
+      "position_y": 9,
+      "show_header": true,
+      "type": "list",
+      "width": 6
+    },
+    {
+      "color": "#6644FF",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 4,
+      "icon": "inventory_2",
+      "id": "9e68dfff-d89d-485a-b0e8-126499be1f44",
+      "name": "Total Assets",
+      "note": "Rows in asset_index (all asset types)",
+      "options": {
+        "abbreviate": false,
+        "collection": "asset_index",
+        "decimals": 0,
+        "field": "asset_id",
+        "filter": {},
+        "function": "count",
+        "sortField": "asset_id"
+      },
+      "position_x": 0,
+      "position_y": 0,
+      "show_header": true,
+      "type": "metric",
+      "width": 3
+    },
+    {
+      "color": "#6644FF",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 1,
+      "icon": "label",
+      "id": "a9fac19c-0781-49b0-afc5-1edd5893b6c3",
+      "name": "Asset health",
+      "note": null,
+      "options": {
+        "color": "#6644FF",
+        "fontSize": "16",
+        "fontWeight": "600",
+        "text": "Asset health",
+        "textAlign": "left"
+      },
+      "position_x": 0,
+      "position_y": 19,
+      "show_header": false,
+      "type": "label",
+      "width": 12
+    },
+    {
+      "color": "#E35169",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 10,
+      "icon": "report",
+      "id": "b6340934-5856-4577-8a58-8f4dacb19f48",
+      "name": "Not Active",
+      "note": "Anything not active: inactive, expired, archived",
+      "options": {
+        "collection": "asset_index",
+        "displayTemplate": "{{name}} · {{template}} · {{status}}",
+        "filter": {
+          "status": {
+            "_nin": [
+              "active"
+            ]
+          }
+        },
+        "limit": 8,
+        "linkToItem": false,
+        "sortDirection": "desc",
+        "sortField": "updated_at"
+      },
+      "position_x": 4,
+      "position_y": 20,
+      "show_header": true,
+      "type": "list",
+      "width": 8
+    },
+    {
+      "color": "#00C3ED",
+      "dashboard": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "height": 8,
+      "icon": "stacked_bar_chart",
+      "id": "e27bc1d2-f5ce-4a4f-bd95-f697813f018b",
+      "name": "Assets by Type",
+      "note": "Count per asset type, straight from the cross-type projection",
+      "options": {
+        "aggregateField": "asset_id",
+        "aggregateFunction": "count",
+        "collection": "asset_index",
+        "filter": {},
+        "groupByField": "template",
+        "limit": 10,
+        "notation": "standard",
+        "numberStyle": "decimal",
+        "sortDirection": "desc"
+      },
+      "position_x": 3,
+      "position_y": 0,
+      "show_header": true,
+      "type": "metric-list",
+      "width": 9
+    }
+  ]
+}

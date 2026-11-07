@@ -1,0 +1,13 @@
+{
+  "collection": "directus_dashboards",
+  "primaryKey": "id",
+  "records": [
+    {
+      "color": "#6644FF",
+      "icon": "dashboard",
+      "id": "bf20a9a8-95ca-4548-978d-17d08a1bf901",
+      "name": "Personal Digital Assets",
+      "note": "Overview of every digital asset"
+    }
+  ]
+}

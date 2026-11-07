@@ -1,0 +1,27 @@
+{
+  "collection": "directus_roles",
+  "primaryKey": "id",
+  "records": [
+    {
+      "description": "$t:admin_description",
+      "icon": "verified",
+      "id": "9e36b817-ef15-401c-a86c-d51aef71caae",
+      "name": "Administrator",
+      "parent": null
+    },
+    {
+      "description": "PDAM Agent role",
+      "icon": "badge",
+      "id": "aa58e08a-9863-4ae4-92ce-1dc531780e82",
+      "name": "PDAM Agent",
+      "parent": null
+    },
+    {
+      "description": "PDAM User role",
+      "icon": "badge",
+      "id": "be9c386f-93ee-4820-8839-beeab4f0075b",
+      "name": "PDAM User",
+      "parent": null
+    }
+  ]
+}

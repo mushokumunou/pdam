@@ -1,0 +1,1110 @@
+{
+  "collection": "directus_permissions",
+  "primaryKey": "id",
+  "records": [
+    {
+      "action": "read",
+      "collection": "accounts",
+      "fields": [
+        "*"
+      ],
+      "id": 1,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "domains",
+      "fields": [
+        "*"
+      ],
+      "id": 10,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "domains",
+      "fields": [
+        "*"
+      ],
+      "id": 11,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "domains",
+      "fields": [
+        "*"
+      ],
+      "id": 12,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "subscriptions",
+      "fields": [
+        "*"
+      ],
+      "id": 13,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "subscriptions",
+      "fields": [
+        "*"
+      ],
+      "id": 14,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "subscriptions",
+      "fields": [
+        "*"
+      ],
+      "id": 15,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "providers",
+      "fields": [
+        "*"
+      ],
+      "id": 16,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "providers",
+      "fields": [
+        "*"
+      ],
+      "id": 17,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "providers",
+      "fields": [
+        "*"
+      ],
+      "id": 18,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "tags",
+      "fields": [
+        "*"
+      ],
+      "id": 19,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "accounts",
+      "fields": [
+        "*"
+      ],
+      "id": 2,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "tags",
+      "fields": [
+        "*"
+      ],
+      "id": 20,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "tags",
+      "fields": [
+        "*"
+      ],
+      "id": 21,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "secret_references",
+      "fields": [
+        "*"
+      ],
+      "id": 22,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "secret_references",
+      "fields": [
+        "*"
+      ],
+      "id": 23,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "secret_references",
+      "fields": [
+        "*"
+      ],
+      "id": 24,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "vps_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 25,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "vps_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 26,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "vps_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 27,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "domains_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 28,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "domains_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 29,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "accounts",
+      "fields": [
+        "*"
+      ],
+      "id": 3,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "domains_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 30,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "accounts_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 31,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "accounts_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 32,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "accounts_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 33,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "subscriptions_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 34,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "subscriptions_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 35,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "subscriptions_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 36,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "payment_methods_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 37,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "payment_methods_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 38,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "payment_methods_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 39,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "payment_methods",
+      "fields": [
+        "*"
+      ],
+      "id": 4,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "asset_index",
+      "fields": [
+        "*"
+      ],
+      "id": 40,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_collections",
+      "fields": [
+        "*"
+      ],
+      "id": 41,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_fields",
+      "fields": [
+        "*"
+      ],
+      "id": 42,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_relations",
+      "fields": [
+        "*"
+      ],
+      "id": 43,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_dashboards",
+      "fields": [
+        "*"
+      ],
+      "id": 44,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_panels",
+      "fields": [
+        "*"
+      ],
+      "id": 45,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_notifications",
+      "fields": [
+        "*"
+      ],
+      "id": 46,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_presets",
+      "fields": [
+        "*"
+      ],
+      "id": 47,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "directus_presets",
+      "fields": [
+        "*"
+      ],
+      "id": 48,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "directus_presets",
+      "fields": [
+        "*"
+      ],
+      "id": 49,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "payment_methods",
+      "fields": [
+        "*"
+      ],
+      "id": 5,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "accounts",
+      "fields": [
+        "*"
+      ],
+      "id": 50,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "accounts",
+      "fields": [
+        "*"
+      ],
+      "id": 51,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "accounts",
+      "fields": [
+        "*"
+      ],
+      "id": 52,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "payment_methods",
+      "fields": [
+        "*"
+      ],
+      "id": 53,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "payment_methods",
+      "fields": [
+        "*"
+      ],
+      "id": 54,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "payment_methods",
+      "fields": [
+        "*"
+      ],
+      "id": 55,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "vps",
+      "fields": [
+        "*"
+      ],
+      "id": 56,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "vps",
+      "fields": [
+        "*"
+      ],
+      "id": 57,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "vps",
+      "fields": [
+        "*"
+      ],
+      "id": 58,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "domains",
+      "fields": [
+        "*"
+      ],
+      "id": 59,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "payment_methods",
+      "fields": [
+        "*"
+      ],
+      "id": 6,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "domains",
+      "fields": [
+        "*"
+      ],
+      "id": 60,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "domains",
+      "fields": [
+        "*"
+      ],
+      "id": 61,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "subscriptions",
+      "fields": [
+        "*"
+      ],
+      "id": 62,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "subscriptions",
+      "fields": [
+        "*"
+      ],
+      "id": 63,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "subscriptions",
+      "fields": [
+        "*"
+      ],
+      "id": 64,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "providers",
+      "fields": [
+        "*"
+      ],
+      "id": 65,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "providers",
+      "fields": [
+        "*"
+      ],
+      "id": 66,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "providers",
+      "fields": [
+        "*"
+      ],
+      "id": 67,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "tags",
+      "fields": [
+        "*"
+      ],
+      "id": 68,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "tags",
+      "fields": [
+        "*"
+      ],
+      "id": 69,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "vps",
+      "fields": [
+        "*"
+      ],
+      "id": 7,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "tags",
+      "fields": [
+        "*"
+      ],
+      "id": 70,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "secret_references",
+      "fields": [
+        "*"
+      ],
+      "id": 71,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "secret_references",
+      "fields": [
+        "*"
+      ],
+      "id": 72,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "secret_references",
+      "fields": [
+        "*"
+      ],
+      "id": 73,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "vps_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 74,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "vps_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 75,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "vps_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 76,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "domains_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 77,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "domains_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 78,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "domains_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 79,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "vps",
+      "fields": [
+        "*"
+      ],
+      "id": 8,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "accounts_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 80,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "accounts_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 81,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "accounts_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 82,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "subscriptions_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 83,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "subscriptions_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 84,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "subscriptions_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 85,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "payment_methods_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 86,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "create",
+      "collection": "payment_methods_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 87,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "delete",
+      "collection": "payment_methods_tags",
+      "fields": [
+        "*"
+      ],
+      "id": 88,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "asset_index",
+      "fields": [
+        "*"
+      ],
+      "id": 89,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "update",
+      "collection": "vps",
+      "fields": [
+        "*"
+      ],
+      "id": 9,
+      "permissions": {},
+      "policy": "d3b3dd04-db0b-4ee3-8f63-680a4e6e9e5b",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_collections",
+      "fields": [
+        "*"
+      ],
+      "id": 90,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_fields",
+      "fields": [
+        "*"
+      ],
+      "id": 91,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    },
+    {
+      "action": "read",
+      "collection": "directus_relations",
+      "fields": [
+        "*"
+      ],
+      "id": 92,
+      "permissions": {},
+      "policy": "8b3567bc-10f9-4fd6-81b2-bf87d7c41993",
+      "presets": null,
+      "validation": {}
+    }
+  ]
+}

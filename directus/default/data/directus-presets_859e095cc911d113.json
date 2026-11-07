@@ -1,0 +1,432 @@
+{
+  "collection": "directus_presets",
+  "primaryKey": "id",
+  "records": [
+    {
+      "bookmark": null,
+      "collection": "subscriptions",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 10,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "price",
+            "currency",
+            "billing_cycle",
+            "renewal_on",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "billing_cycle": 120,
+            "currency": 90,
+            "name": 200,
+            "price": 100,
+            "provider": 140,
+            "renewal_on": 140,
+            "status": 110
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "price",
+            "currency",
+            "billing_cycle",
+            "renewal_on",
+            "status"
+          ],
+          "sort": [
+            "renewal_on"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "asset_index",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 17,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "template",
+            "provider_name",
+            "account_name",
+            "status",
+            "expires_on",
+            "renewal_on",
+            "tags"
+          ],
+          "limit": 100,
+          "widths": {
+            "account_name": 170,
+            "expires_on": 130,
+            "name": 260,
+            "provider_name": 150,
+            "renewal_on": 130,
+            "status": 110,
+            "tags": 200,
+            "template": 130
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "template",
+            "provider_name",
+            "account_name",
+            "status",
+            "expires_on",
+            "renewal_on",
+            "tags"
+          ],
+          "sort": [
+            "-updated_at"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "providers",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 3,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "category",
+            "website",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "category": 140,
+            "name": 220,
+            "status": 110,
+            "website": 260
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "category",
+            "website",
+            "status"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "tags",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 4,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "slug",
+            "color"
+          ],
+          "limit": 50,
+          "widths": {
+            "color": 120,
+            "name": 220,
+            "slug": 180
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "slug",
+            "color"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "secret_references",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 5,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "secret_type",
+            "provider",
+            "last_rotated_at",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "last_rotated_at": 170,
+            "name": 220,
+            "provider": 130,
+            "secret_type": 130,
+            "status": 110
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "secret_type",
+            "provider",
+            "last_rotated_at",
+            "status"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "accounts",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 6,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "username",
+            "email",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "email": 240,
+            "name": 220,
+            "provider": 160,
+            "status": 110,
+            "username": 160
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "username",
+            "email",
+            "status"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "payment_methods",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 7,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "type",
+            "last_four",
+            "currency",
+            "expires_on",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "currency": 100,
+            "expires_on": 140,
+            "last_four": 100,
+            "name": 220,
+            "status": 110,
+            "type": 130
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "type",
+            "last_four",
+            "currency",
+            "expires_on",
+            "status"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "vps",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 8,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "ipv4",
+            "region",
+            "os",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "ipv4": 140,
+            "name": 200,
+            "os": 130,
+            "provider": 150,
+            "region": 120,
+            "status": 110
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "provider",
+            "ipv4",
+            "region",
+            "os",
+            "status"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    },
+    {
+      "bookmark": null,
+      "collection": "domains",
+      "color": null,
+      "filter": null,
+      "icon": "bookmark",
+      "id": 9,
+      "layout": "tabular",
+      "layout_options": {
+        "tabular": {
+          "fields": [
+            "name",
+            "registrar",
+            "expires_on",
+            "auto_renew",
+            "status"
+          ],
+          "limit": 50,
+          "widths": {
+            "auto_renew": 110,
+            "expires_on": 140,
+            "name": 240,
+            "registrar": 160,
+            "status": 110
+          }
+        }
+      },
+      "layout_query": {
+        "tabular": {
+          "fields": [
+            "name",
+            "registrar",
+            "expires_on",
+            "auto_renew",
+            "status"
+          ],
+          "sort": [
+            "name"
+          ]
+        }
+      },
+      "refresh_interval": null,
+      "role": null,
+      "search": null,
+      "user": null
+    }
+  ]
+}
