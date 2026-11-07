@@ -170,6 +170,7 @@ If that measurement fails, revisit ADR-002/003 before writing more templates.
 ## Continuous rules
 
 - `d6s sync pull` after any Studio edit; `d6s sync diff` before any push; never push blind.
+- Use `d6s sync diff --mode add` to prove the target already has the repo's configuration. Plain `merge` always reports the 10 dashboard panels as updates because the sync format nulls server-managed `date_created`/`user_created`, which the API returns — a cosmetic no-op, not drift.
 - Backups: `pg_dump` (content) + `directus/` (shape). Both, every time.
 - Directus upgrades: bump image tag → boot → `d6s sync pull` (new baseline) → commit.
 - Every new template: check it does not add a secret-bearing field name (Phase 7 lint).
