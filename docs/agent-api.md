@@ -182,3 +182,31 @@ GET /panels?fields=name,type,position_x,position_y,width,height,options
 Panel `options.collection` / `options.filter` describe exactly which query feeds each panel — same
 filters an agent can replay against `/items/...`. The dashboard creates no tables and owns no data;
 `asset_index` remains the only cross-type read path.
+
+## 9. Agent credentials and limits (Phase 8A)
+
+Agents authenticate with a **dedicated static token** (`PDAM_AGENT_TOKEN` in the runtime
+environment, or a `0600` file locally). Never the administrator token.
+
+Allowed: read every business collection plus `asset_index`; create/update assets and references;
+add/remove tags (junction rows); archive via `PATCH {"status":"archived"}`; read schema metadata
+(`/collections`, `/fields`, `/relations`) and use `/mcp`.
+
+Denied by Directus permissions (403, not by prompt):
+
+- `DELETE` on any asset or reference collection
+- any write to `asset_index` (create / update / delete)
+- `POST /collections`, `POST /fields/...`, `PATCH /relations/...`
+- `PATCH /policies/...`, `POST /permissions`, `POST /roles`, `/users` (including self role change)
+- dashboards/panels mutation, project settings, other users' records
+
+MCP notes: the agent identity has `app_access=false`, so it cannot open the Studio. `collections`,
+`fields` and `relations` MCP tools refuse non-admins outright. `items delete` is disabled by
+`mcp_allow_deletes=false` **and** by permission (defense in depth).
+
+**Always scope writes.** `items update` with neither `keys` nor `query.filter` updates every row of
+the collection — verified live during testing. Use:
+
+```json
+{"action":"update","collection":"vps","keys":["<uuid>"],"data":{"region":"Osaka"}}
+```

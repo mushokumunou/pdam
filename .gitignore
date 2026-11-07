@@ -1,4 +1,6 @@
 .admin-token
+.agent-token
+.pdam-user-password
 .env
 data/
 node_modules/

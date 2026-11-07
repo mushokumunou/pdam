@@ -127,11 +127,19 @@ so dashboard → source asset needs a future navigation extension.
 
 ---
 
-## Phase 7 — Secret boundary
+## Phase 7 — Secret boundary **[done]**
 
-Seed `secret_references` usage on `accounts` + `payment_methods`; permissions so the reference
-column is admin-visible only; document the Vaultwarden item-id convention; add a lint query that
-fails if any template declares a field named `password`/`secret`/`token`/`private_key`.
+Schema audit: `secret_references` holds pointer metadata only (name, secret_type, provider,
+reference, vault_url, last_rotated_at, status, notes) — no material. `scripts/lint_secret_schema.py`
+scans specs and the live schema for secret-material field names (with `--self-test`), and is part of
+the verification pass. No secret-manager integration in this phase.
+
+## Phase 8A — Agent access policy **[done]**
+
+`scripts/apply_security.py` creates policy `PDAM Agent` (`app_access=false`, 43 permission rows),
+role, user and static token (env/`0600` file, never git). Also creates `PDAM User` (Studio-capable,
+no hard delete) so humans stop using the admin account for daily work. Verified by
+`scripts/verify_security.py` — 72/72, three identities, allow/deny/public/MCP sections.
 
 ---
 

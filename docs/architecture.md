@@ -247,6 +247,19 @@ cross-type lists keep `linkToItem: false` on purpose, because the row belongs to
 projection must never be edited. Going from a projection row to its source asset needs a future
 lightweight navigation extension (`template` + `asset_id` → `/admin/content/<template>/<id>`).
 
+## 4.2 Security boundary (Phase 7 / 8A, implemented)
+
+Permissions are the boundary; prompts and UI conventions are not. Three policies exist:
+`Administrator` (unchanged, unrestricted), `PDAM User` (`app_access=true`, no hard delete, no schema
+or policy mutation), `PDAM Agent` (`app_access=false`, REST/MCP only, same limits). `asset_index` is
+read-only for both non-admin identities, and the five tag junctions grant `delete` only because
+removing a tag is a junction delete.
+
+Verified facts that shaped it: row-level permission rules are licence-restricted on this instance, so
+grants are collection-level; `roles.policies` writes must go through `POST /access`; MCP adds an
+`mcp_allow_deletes` switch but the permission still denies deletion underneath. Details, matrix and
+residual risks: `docs/security.md`.
+
 ## 5. Scale validation (200 domains / 300 accounts / 100 subscriptions / 100 servers / 50 providers)
 
 | Operation | Mechanism | Verdict |

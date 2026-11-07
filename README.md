@@ -12,7 +12,7 @@ navigation entry are versioned in git.
 
 ## Status
 
-Phase 0-6 complete and verified against the live instance:
+Phase 0-7 / 8A complete and verified against the live instance:
 
 - 8 typed/reference collections + 5 tag junctions + 1 projection (`asset_index`)
 - 23 real relations (m2o, m2m), 8 per-template Studio presets, 1 "All Assets" preset
@@ -21,7 +21,15 @@ Phase 0-6 complete and verified against the live instance:
 - Insights dashboard "Personal Digital Assets" (7 panels over `asset_index` + `subscriptions`),
   built by `python3 scripts/build_dashboard.py`
 
-Not built (deliberately): custom frontend, dashboard panels, agent RBAC, template builder.
+- Security boundary enforced by Directus policies (72/72 checks): `python3 scripts/verify_security.py`
+- Secret-material lint: `python3 scripts/lint_secret_schema.py`
+
+Identities: Administrator (full), `PDAM User` (Studio + dashboard + asset CRUD, no hard delete),
+`PDAM Agent` (REST/MCP only, asset CRUD, no hard delete, no schema/policy changes), Public (none).
+See [docs/security.md](docs/security.md).
+
+Not built (deliberately): custom frontend, secret-manager integration, agent CLI wrapper,
+template builder.
 
 ## Why this shape
 
